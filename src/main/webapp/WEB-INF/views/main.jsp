@@ -4,7 +4,7 @@
 </head>
 
 <body>
-	내용입니다.
+	메인
 </body>
 
 </html>

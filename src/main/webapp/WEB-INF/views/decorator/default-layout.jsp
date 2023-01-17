@@ -32,6 +32,19 @@
 <!-- Template Main CSS File -->
 <link href="resources/css/style.css" rel="stylesheet">
 
+<!-- Vendor JS Files -->
+<script src="resources/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="resources/vendor/chart.js/chart.umd.js"></script>
+<script src="resources/vendor/echarts/echarts.min.js"></script>
+<script src="resources/vendor/quill/quill.min.js"></script>
+<script src="resources/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="resources/vendor/tinymce/tinymce.min.js"></script>
+<script src="resources/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="resources/js/main.js"></script>
+
 <sitemesh:write property='head' />
 
 </head>
@@ -292,7 +305,7 @@
 				</a>
 				<ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 					<li>
-						<a href="components-alerts.html">
+						<a href="components-alerts">
 							<i class="bi bi-circle"></i><span>Alerts</span>
 						</a>
 					</li>
@@ -516,6 +529,12 @@
 	</aside>
 	<!-- End Sidebar-->
 
+	<main id="main" class="main">
+		<div>
+			<sitemesh:write property='body' />
+		</div>
+	</main>
+	
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="copyright">
@@ -535,12 +554,6 @@
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
 		<i class="bi bi-arrow-up-short"></i>
 	</a>
-
-	<main id="main" class="main">
-		<div>
-			<sitemesh:write property='body' />
-		</div>
-	</main>
 	
 </body>
 </html>

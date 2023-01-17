@@ -17,5 +17,9 @@ public class RootController {
 		return "main";
 	}
 	
+	@GetMapping("/components-alerts")
+	public void alerts() {
+		
+	}
 	
 }
