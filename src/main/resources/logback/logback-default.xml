@@ -13,7 +13,7 @@
     <logger name="jdbc.sqltiming" level="debug"/>
     <logger name="jdbc.audit" level="off"/>
     <logger name="jdbc.resultset" level="off"/>
-    <logger name="jdbc.resultsettable" level="debug"/>
+    <logger name="jdbc.resultsettable" level="off"/>
     <logger name="jdbc.connection" level="off"/>
 
     <root level="info">

@@ -17,22 +17,25 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
 
 <!-- Vendor CSS Files -->
-<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
-<link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="resources/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="resources/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="resources/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="resources/vendor/simple-datatables/style.css" rel="stylesheet">
-
+<link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+<link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"/>
+<link href="resources/vendor/quill/quill.snow.css" rel="stylesheet"/>
+<link href="resources/vendor/quill/quill.bubble.css" rel="stylesheet"/>
+<link href="resources/vendor/remixicon/remixicon.css" rel="stylesheet"/>
+<link href="resources/vendor/simple-datatables/style.css" rel="stylesheet"/>
 <!-- Template Main CSS File -->
-<link href="resources/css/style.css" rel="stylesheet">
+<link href="resources/css/style.css" rel="stylesheet"/>
+<!-- dataTable  -->
+<link href="resources/DataTables/datatables.min.css" rel="stylesheet" />
 
-<!-- Vendor JS Files -->
+ 
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+ <!-- Vendor JS Files -->
 <script src="resources/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="resources/vendor/chart.js/chart.umd.js"></script>
@@ -41,9 +44,11 @@
 <script src="resources/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="resources/vendor/tinymce/tinymce.min.js"></script>
 <script src="resources/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
 <script src="resources/js/main.js"></script>
+<script src="resources/js/common.js"></script>
+
+<!-- dataTable -->
+<script src="resources/DataTables/datatables.min.js"></script>
 
 <sitemesh:write property='head' />
 
@@ -310,8 +315,8 @@
 						</a>
 					</li>
 					<li>
-						<a href="components-accordion.html">
-							<i class="bi bi-circle"></i><span>Accordion</span>
+						<a href="/accbookList.do">
+							<i class="bi bi-circle"></i><span>가계부 목록</span>
 						</a>
 					</li>
 					<li>
