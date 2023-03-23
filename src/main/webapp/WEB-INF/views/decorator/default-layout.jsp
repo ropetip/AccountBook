@@ -32,6 +32,7 @@
 <link href="resources/css/style.css" rel="stylesheet"/>
 <!-- dataTable  -->
 <link href="resources/DataTables/datatables.min.css" rel="stylesheet" />
+<link href="resources/DataTables/DataTables-1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
 
  
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -49,9 +50,19 @@
 
 <!-- dataTable -->
 <script src="resources/DataTables/datatables.min.js"></script>
+<script src="resources/DataTables/DataTables-1.13.1/js/jquery.dataTables.min.js"></script>
 
 <sitemesh:write property='head' />
 
+<script>
+
+$(document).ready(function () {
+});
+
+function go(url) {
+	window.location.href = url;
+}
+</script>
 </head>
 <body>
 
@@ -60,7 +71,7 @@
 	<header id="header" class="header fixed-top d-flex align-items-center">
 
 		<div class="d-flex align-items-center justify-content-between">
-			<a href="/" class="logo d-flex align-items-center">
+			<a onclick="go('/')" class="logo d-flex align-items-center">
 				<img src="resources/img/logo.png" alt=""> <span class="d-none d-lg-block">NiceAdmin</span>
 			</a>
 			<i class="bi bi-list toggle-sidebar-btn"></i>
@@ -298,7 +309,7 @@
 		<ul class="sidebar-nav" id="sidebar-nav">
 
 			<li class="nav-item">
-				<a class="nav-link " href="/">
+				<a class="nav-link " onclick="go('/')">
 					<i class="bi bi-grid"></i> <span>Dashboard</span>
 				</a>
 			</li>
@@ -315,7 +326,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/accbookList.do">
+						<a onclick="go('/accbookList.do')">
 							<i class="bi bi-circle"></i><span>가계부 목록</span>
 						</a>
 					</li>
@@ -539,7 +550,6 @@
 			<sitemesh:write property='body' />
 		</div>
 	</main>
-	
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="copyright">

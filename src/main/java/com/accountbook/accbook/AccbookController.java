@@ -24,7 +24,6 @@ public class AccbookController {
 	
 	@RequestMapping("/accbookList.do")
 	public String accBookList(Model model) {
-		
 		return "/accbook/m-accbook-list";
 	}
 	
