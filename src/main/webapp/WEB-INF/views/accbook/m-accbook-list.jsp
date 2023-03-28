@@ -11,9 +11,8 @@
 </style>
 <script>
 window.addEventListener("load", (e) => {
-	//onSearch();
 	load();
-	doEdit();
+
 });
 
 /* dom 기능
@@ -27,8 +26,9 @@ window.addEventListener("load", (e) => {
 	C: DataTable의 캡션(표 제목)을 표시합니다.
 	S: DataTable의 스크롤바를 표시합니다.
 */
+var table; 
 function load() {
-	var table = $('#dataTable').DataTable( {
+	table = $('#dataTable').DataTable( {
 		dom: 'BRlfrti',
 		ajax: {
 		      "url": "/getAccbookList.do",
@@ -38,7 +38,7 @@ function load() {
 	        { "data": "BOARD_TYPE" },
 	        { "data": "TITLE" },
 	        { "data": "CONTENTS" },
-	        { "data": "REG_DATE" },
+	        { "data": "REG_YMD" },
       	],
       	columnDefs: [
    			{
@@ -50,13 +50,10 @@ function load() {
       		{
      			targets: "_all", className: "editable", defaultContent: "",
       			createdCell: function (td, cellData, rowData, row, col) {
-					$(td).attr('contenteditable', "true");
+					$(td).attr('contenteditable', "false");
       		    }
    			},
    		],
-   		createdCell: function (td, cellData, rowData, row, col) {
-   	        td.attr('contenteditable', "true");
-   	 	},
 		scrollY: 500,
 		scrollCollapse: true,
 		editable: true, // 편집 가능 설정
@@ -70,16 +67,20 @@ function load() {
         paging: false,        //페이징 표시 설정
         pageLength: 10,     //페이지 당 글 개수 설정
         initComplete: function () {
-            $("div.toolbar").html('<div class="btn-group">'+$(".dt-buttons").html()+'</div>');
-            $(".dataTables_length").appendTo("div.toolbar");
         },
        	buttons: [
 			{ 
-			  text: "추가",
-              action: function ( e, dt, node, config ) { 
-            	  doAdd(); 
-           	  }
+				text: "추가",
+              	action: function ( e, dt, node, config ) { 
+            	  	doAdd(); 
+           	  	}
             },
+            { 
+				text: "조회",
+              	action: function ( e, dt, node, config ) { 
+              		 doSearch();
+				}
+			},
         ],
 		language: {
 		    emptyTable: "데이터가 없습니다.",
@@ -97,46 +98,59 @@ function load() {
 		    },
 		 },
     } );
-}
 	
-function doEdit() {
-	/* $(document).on("click", ".editable", function() {
-		var value=$(this).text();
-		var input="<input type='text' class='input-data' value='"+value+"' class='form-control'>";
-        $(this).html(input);
-        $(this).removeClass("editable");
-    });
-    $(document).on("blur", ".input-data", function() {
-        var value=$(this).val();
-        var td=$(this).parent("td");
-        $(this).remove();
-        td.html(value);
-        td.addClass("editable")
-        });
-    $(document).on("keypress", ".input-data", function(e) {
-        var key=e.which;
-        if(key==13) {
-            var value=$(this).val();
-            var td=$(this).parent("td");
-            $(this).remove();
-            td.html(value);
-            td.addClass("editable");
-        }
-    }); */
+	$("#dataTable tbody").on("click", "tr", function() {
+		var data = table.row(this).data(); // 클릭된 행의 데이터 가져오기
+		showDetails(data); // 상세 정보 보여주는 함수 호출
+	});
+	
 }
 
 function doAdd() {
+	let fm = document.querySelector("#fm");
+	fm.setAttribute("method", "post");
+	fm.setAttribute("action", "accbookDetail.do");
+	fm.submit();
+	
+	/* 행 추가 
 	var table = $('#dataTable').DataTable();
 	table.row.add( [
 	    'New Data 1',
 	    'New Data 2',
 	    'New Data 2',
 	    'New Data 3'
-	] ).draw();
+	] ).draw(); */
 }
 // 조회
-function onSearch() {
+function doSearch() {
+	/* table.clear().draw();
+	$.ajax({
+		url: "/getAccbookList.do",
+		success: function(data) {
+		  	table.rows.add(data).draw();
+		},
+		error: function() {
+			alert("데이터를 가져오는데 실패하였습니다.");
+		}
+	}); */
 	ajaxSubmit("/getAccbookList.do");	
+}
+
+function showDetails(data) {
+	const modalBody = document.querySelector(".modal-body");
+	let input = modalBody.querySelectorAll("input");
+	input.forEach( (elem) => {
+		let col_id = elem.getAttribute("col-id");
+		let data_idx = Object.getOwnPropertyNames(data).indexOf(col_id);
+		if( data_idx > -1 ) {
+			elem.value = data[Object.getOwnPropertyNames(data)[data_idx]]; 
+		}	
+	});
+    $("#dataModal").modal("show");
+    // 모달 창 닫기 버튼 클릭 이벤트 처리
+    $("#dataModal [data-dismiss='modal']").on("click", function() {
+        $("#dataModal").modal("hide");
+    });
 }
 
 //조회 완료 후
@@ -148,23 +162,60 @@ function onCompleteList() {
 </script>
 </head>
 <body>
-	<table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-		<thead>
-			<tr>
-				<th>유형</th>
-				<th>제목</th>
-				<th>내용</th>
-				<th>등록날짜</th>
-			</tr>	
-       	</thead>
-       	<tbody>
-       		<!-- <tr row-id="dataRow">
-       			<td col-id="board_type"></td>
-       			<td col-id="title"></td>
-       			<td col-id="contents"></td>
-       			<td col-id="reg_date"></td>
-       		</tr> -->
-       	</tbody>
-	</table>
+	<form id="fm">
+		<table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+			<thead>
+				<tr>
+					<th>유형</th>
+					<th>제목</th>
+					<th>내용</th>
+					<th>등록날짜</th>
+				</tr>	
+	       	</thead>
+	       	<tbody>
+	       		<!-- <tr row-id="dataRow">
+	       			<td col-id="board_type"></td>
+	       			<td col-id="title"></td>
+	       			<td col-id="contents"></td>
+	       			<td col-id="reg_date"></td>
+	       		</tr> -->
+	       	</tbody>
+		</table>
+	</form>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">가계부 상세</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row mb-3">
+						<label for="inputText" class="col-sm-2 col-form-label">제목</label>
+						<div class="col-sm-10">
+							<input col-id="TITLE" class="form-control">
+						</div>
+					</div>
+					<!-- <table id="tb_detail" class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>제목</th>
+								<td col-id="TITLE">123</td>
+							</tr>
+				       	</thead>
+					</table> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>

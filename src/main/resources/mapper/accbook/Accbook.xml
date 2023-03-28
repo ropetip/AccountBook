@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Accbook">
+<mapper namespace="accbook">
 
 	<select id="getList" parameterType="map" resultType="map">
-		SELECT B.BOARD_SEQ
- 				 , B.BOARD_TYPE
-		         , B.TITLE
-		         , B.CONTENTS
-		         , B.REG_DATE
-		         , B.DEL_YN
-		 FROM T_BOARD B
-	  	 ORDER BY B.REG_DATE DESC
+		/* accbook.getList */
+		SELECT A.BOARD_SEQ
+ 				 , A.BOARD_TYPE
+		         , A.TITLE
+		         , A.CONTENTS
+		         , A.DEL_YN
+		         , A.REG_YMD
+		         , A.REG_DT
+		 FROM T_BOARD A
+	  	 ORDER BY A.REG_DT DESC
 	</select>
 	
 </mapper>

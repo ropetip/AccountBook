@@ -21,7 +21,7 @@ public class AccbookService {
 	@Autowired
     private SqlSessionTemplate sqlSession;
 	
-	 private final static String NAMESPACE = "Accbook.";
+	private final static String NAMESPACE = "accbook.";
 	
 	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
 		

@@ -1,8 +1,25 @@
 /**
  * 공통 JS
  */
-
 function ajaxSubmit(url, data) {
+	table.clear().draw();
+	
+	$.ajax({
+		url: url
+		, type: "post"
+		, data: data
+		, dataType: "json"
+		, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+		, success: function(data, status, xhr) {
+			table.rows.add(data).draw();
+		},
+		error: function(xhr, status, error) {
+			alert("데이터를 가져오는데 실패하였습니다.");
+		}
+	});
+}
+
+function ajaxSubmit_table(url, data) {
 	$.ajax({
 		url: url
 		, type: "post"
