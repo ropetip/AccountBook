@@ -25,7 +25,7 @@ public class AccbookService {
 	
 	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
 		
-		List<Map<String, Object>> listmap = sqlSession.selectList(NAMESPACE + "getList");
+		List<Map<String, Object>> listmap = sqlSession.selectList(NAMESPACE + "getAccbookList");
 
 		return listmap;
 	}

@@ -3,17 +3,18 @@
 
 <mapper namespace="accbook">
 
-	<select id="getList" parameterType="map" resultType="map">
-		/* accbook.getList */
-		SELECT A.BOARD_SEQ
- 				 , A.BOARD_TYPE
-		         , A.TITLE
-		         , A.CONTENTS
-		         , A.DEL_YN
-		         , A.REG_YMD
-		         , A.REG_DT
-		 FROM T_BOARD A
-	  	 ORDER BY A.REG_DT DESC
+	<select id="getAccbookList" parameterType="map" resultType="map">
+		/* accbook.getAccbookList */
+		SELECT A.ACC_ID
+				 , A.USR_ID
+				 , A.CLASS_CD
+				 , A.ITEM_CD
+				 , A.ACC_YMD
+				 , A.ACC_AMT
+				 , A.ASSET_CD
+				 , A.NOTE
+		 FROM T_ACCBOOK A
+	  	 ORDER BY A.ACC_YMD DESC
 	</select>
 	
 </mapper>

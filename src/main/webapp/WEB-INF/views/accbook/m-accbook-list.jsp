@@ -12,7 +12,6 @@
 <script>
 window.addEventListener("load", (e) => {
 	load();
-
 });
 
 /* dom 기능
@@ -35,10 +34,12 @@ function load() {
 		      "dataSrc": ""
 	    },
 	    columns: [
-	        { "data": "BOARD_TYPE" },
-	        { "data": "TITLE" },
-	        { "data": "CONTENTS" },
-	        { "data": "REG_YMD" },
+	        { "data": "CLASS_CD" },
+	        { "data": "ITEM_CD" },
+	        { "data": "ACC_YMD" },
+	        { "data": "ASSET_CD" },
+	        { "data": "ACC_AMT" },
+	        { "data": "NOTE" },
       	],
       	columnDefs: [
    			{
@@ -99,18 +100,23 @@ function load() {
 		 },
     } );
 	
-	$("#dataTable tbody").on("click", "tr", function() {
-		var data = table.row(this).data(); // 클릭된 행의 데이터 가져오기
-		showDetails(data); // 상세 정보 보여주는 함수 호출
+	$("#dataTable tbody").on("click", "tr", function() {	
+		const isEmptyTable = this.querySelector(".dataTables_empty") !== null ? true : false;
+		if(!isEmptyTable) {
+			let data = table.row(this).data(); // 클릭된 행의 데이터 가져오기
+			showDetails(data); // 상세 정보 보여주는 함수 호출	
+		}
 	});
 	
 }
 
 function doAdd() {
-	let fm = document.querySelector("#fm");
+	/* let fm = document.querySelector("#fm");
 	fm.setAttribute("method", "post");
 	fm.setAttribute("action", "accbookDetail.do");
-	fm.submit();
+	fm.submit(); */
+	
+	showDetails();
 	
 	/* 행 추가 
 	var table = $('#dataTable').DataTable();
@@ -133,19 +139,21 @@ function doSearch() {
 			alert("데이터를 가져오는데 실패하였습니다.");
 		}
 	}); */
-	ajaxSubmit("/getAccbookList.do");	
+	CO.ajaxSubmit("/getAccbookList.do");	
 }
 
 function showDetails(data) {
-	const modalBody = document.querySelector(".modal-body");
-	let input = modalBody.querySelectorAll("input");
-	input.forEach( (elem) => {
-		let col_id = elem.getAttribute("col-id");
-		let data_idx = Object.getOwnPropertyNames(data).indexOf(col_id);
-		if( data_idx > -1 ) {
-			elem.value = data[Object.getOwnPropertyNames(data)[data_idx]]; 
-		}	
-	});
+	if(CO.isObject(data)) {
+		const modalBody = document.querySelector(".modal-body");
+		let input = modalBody.querySelectorAll("input");
+		input.forEach( (elem) => {
+			let col_id = elem.getAttribute("col-id");
+			let data_idx = Object.getOwnPropertyNames(data).indexOf(col_id);
+			if( data_idx > -1 ) {
+				elem.value = data[Object.getOwnPropertyNames(data)[data_idx]]; 
+			}	
+		});
+	}
     $("#dataModal").modal("show");
     // 모달 창 닫기 버튼 클릭 이벤트 처리
     $("#dataModal [data-dismiss='modal']").on("click", function() {
@@ -166,10 +174,12 @@ function onCompleteList() {
 		<table id="dataTable" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr>
-					<th>유형</th>
-					<th>제목</th>
+					<th>분류</th>
+					<th>항목</th>
+					<th>일자</th>
+					<th>금액</th>
+					<th>자산</th>
 					<th>내용</th>
-					<th>등록날짜</th>
 				</tr>	
 	       	</thead>
 	       	<tbody>
@@ -195,19 +205,40 @@ function onCompleteList() {
 				</div>
 				<div class="modal-body">
 					<div class="row mb-3">
-						<label for="inputText" class="col-sm-2 col-form-label">제목</label>
+						<label class="col-sm-2 col-form-label">분류</label>
 						<div class="col-sm-10">
-							<input col-id="TITLE" class="form-control">
+							<select class="form-select" aria-label="Default select example">
+								<option selected="">선택</option>
+								<option value="1">One</option>
+								<option value="2">Two</option>
+								<option value="3">Three</option>
+							</select>
 						</div>
 					</div>
-					<!-- <table id="tb_detail" class="table table-striped table-bordered" style="width:100%">
-						<thead>
-							<tr>
-								<th>제목</th>
-								<td col-id="TITLE">123</td>
-							</tr>
-				       	</thead>
-					</table> -->
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">항목</label>
+						<div class="col-sm-10">
+							<input col-id="ITEM_CD" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label for="inputDate" class="col-sm-2 col-form-label">일자</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">금액</label>
+						<div class="col-sm-10">
+							<input type="currency" col-id="ACC_AMT" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">내용</label>
+						<div class="col-sm-10">
+							<input col-id="NOTE" class="form-control">
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
