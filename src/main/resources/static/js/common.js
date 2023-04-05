@@ -32,7 +32,7 @@ let CO = {
 	isObject: function(obj) {
 		return typeof obj === "object" && obj !== null;
 	},
-	// 테이블 조회
+	// dataTable 그리기
 	ajaxSubmit: function(url, data) {
 		table.clear().draw();
 
@@ -50,7 +50,36 @@ let CO = {
 			}
 		});
 	},
-
+	
+	// 코드매핑
+	ajaxSubmit_code: function(url, data) {
+		$.ajax({
+			url: url
+			, type: "post"
+			, data: data
+			, dataType: "json"
+			, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+			, success: function(data, status, xhr) {
+				CO.callback_code(data, status, xhr);
+			},
+			error: function(xhr, status, error) {
+				CO.callback_code(xhr, status, error);
+			}
+		});
+	},
+	
+	callback_code: function(data, status, error) {
+		if (status == "success") {
+			for (let i = 0; i < data.length; i++) {
+				//let keys = Object.getOwnPropertyNames(data[i]);
+				console.log(data[i]);
+			}
+		} else {
+			alert(data.responseJSON.status + " " + data.responseJSON.error);
+		}
+	},
+	
+	// 테이블 그리기
 	ajaxSubmit_table: function(url, data) {
 		$.ajax({
 			url: url
@@ -59,10 +88,10 @@ let CO = {
 			, dataType: "json"
 			, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 			, success: function(data, status, xhr) {
-				callback(data, status, xhr);
+				CO.callback(data, status, xhr);
 			},
 			error: function(xhr, status, error) {
-				callback(xhr, status, error);
+				CO.callback(xhr, status, error);
 			}
 		});
 	},

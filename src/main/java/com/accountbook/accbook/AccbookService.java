@@ -25,9 +25,16 @@ public class AccbookService {
 	
 	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
 		
-		List<Map<String, Object>> listmap = sqlSession.selectList(NAMESPACE + "getAccbookList");
+		List<Map<String, Object>> resultMap = sqlSession.selectList(NAMESPACE + "getAccbookList");
 
-		return listmap;
+		return resultMap;
+	}
+	
+	public List<Map<String, Object>> getCommonCode(@RequestParam Map<String, Object> param) {
+		
+		List<Map<String, Object>> resultMap = sqlSession.selectList(NAMESPACE + "getCommonCode");
+		System.out.println(resultMap.toString());
+		return resultMap;
 	}
 	
 }

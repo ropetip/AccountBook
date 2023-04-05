@@ -12,6 +12,26 @@
 <script>
 window.addEventListener("load", (e) => {
 	load();
+	
+	let result = CO.ajaxSubmit_code("/getCommonCode.do");
+	console.log(result);
+	
+	/* let data = {
+		CLASS_NM : [
+			{"key": "10", "val": "수입"},
+			{"key": "20", "val": "지출"}
+		],
+	}; */
+	
+	let select = document.querySelectorAll("select");
+	select.forEach(function(item){
+	    let setData = item.getAttribute("set-data");
+	    if(setData.length > 0){
+	    	/* let obj = JSON.parse(setData);
+	    	console.log(obj); */
+	    }
+	});
+	
 });
 
 /* dom 기능
@@ -34,10 +54,10 @@ function load() {
 		      "dataSrc": ""
 	    },
 	    columns: [
-	        { "data": "CLASS_CD" },
-	        { "data": "ITEM_CD" },
+	        { "data": "CLASS_NM" },
+	        { "data": "ITEM_NM" },
 	        { "data": "ACC_YMD" },
-	        { "data": "ASSET_CD" },
+	        { "data": "ASSET_NM" },
 	        { "data": "ACC_AMT" },
 	        { "data": "NOTE" },
       	],
@@ -207,18 +227,13 @@ function onCompleteList() {
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label">분류</label>
 						<div class="col-sm-10">
-							<select class="form-select" aria-label="Default select example">
-								<option selected="">선택</option>
-								<option value="1">One</option>
-								<option value="2">Two</option>
-								<option value="3">Three</option>
-							</select>
+							<select set-data="data.CLASS_NM" class="form-select" aria-label="Default select example"></select>
 						</div>
 					</div>
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label">항목</label>
 						<div class="col-sm-10">
-							<input col-id="ITEM_CD" class="form-control">
+							<input col-id="ITEM_NM" class="form-control">
 						</div>
 					</div>
 					<div class="row mb-3">

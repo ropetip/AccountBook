@@ -32,8 +32,15 @@ public class AccbookController {
 	@RequestMapping("/getAccbookList.do")
 	public @ResponseBody List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> resultList = accbookService.getAccbookList(map);
-		return resultList;
+		List<Map<String, Object>> resultListMap = accbookService.getAccbookList(map);
+		return resultListMap;
+	}
+	
+	@RequestMapping("/getCommonCode.do")
+	public @ResponseBody List<Map<String, Object>> getCommonCode(@RequestParam Map<String, Object> param) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> resultListMap = accbookService.getCommonCode(map);
+		return resultListMap;
 	}
 	
 	@RequestMapping("/accbookDetail.do")

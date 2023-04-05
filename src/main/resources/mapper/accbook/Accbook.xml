@@ -7,14 +7,24 @@
 		/* accbook.getAccbookList */
 		SELECT A.ACC_ID
 				 , A.USR_ID
-				 , A.CLASS_CD
-				 , A.ITEM_CD
+				 , A.CLASS_NM
+				 , A.ITEM_NM
 				 , A.ACC_YMD
 				 , A.ACC_AMT
-				 , A.ASSET_CD
+				 , A.ASSET_NM
 				 , A.NOTE
 		 FROM T_ACCBOOK A
 	  	 ORDER BY A.ACC_YMD DESC
+	</select>
+	
+	<select id="getCommonCode" parameterType="map" resultType="map">
+		/* accbook.getCommonCode */
+		SELECT A.CODE_TYPE_ID AS CODE
+		     	 , B.CODE_NM AS CODE_NM
+		FROM T_CODE_TYPE A
+		     	, T_CODE B
+		WHERE A.CODE_TYPE_ID = B.CODE_TYPE_ID
+		AND A.CODE_TYPE_ID = 'CLASS_CD'
 	</select>
 	
 </mapper>
