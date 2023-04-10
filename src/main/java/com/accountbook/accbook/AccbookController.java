@@ -1,6 +1,5 @@
 package com.accountbook.accbook;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,16 +29,16 @@ public class AccbookController {
 	}
 	
 	@RequestMapping("/getAccbookList.do")
-	public @ResponseBody List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> resultListMap = accbookService.getAccbookList(map);
+	@ResponseBody 
+	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
+		List<Map<String, Object>> resultListMap = accbookService.getAccbookList(param);
 		return resultListMap;
 	}
 	
 	@RequestMapping("/getCommonCode.do")
-	public @ResponseBody List<Map<String, Object>> getCommonCode(@RequestParam Map<String, Object> param) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> resultListMap = accbookService.getCommonCode(map);
+	@ResponseBody
+	public  List<Map<String, Object>> getCommonCode(@RequestParam Map<String, Object> param) {
+		List<Map<String, Object>> resultListMap = accbookService.getCommonCode(param);
 		return resultListMap;
 	}
 	
@@ -48,5 +47,12 @@ public class AccbookController {
 		System.out.println(req.getParameter("board_type"));
 		System.out.println(req.getParameter("BOARD_TYPE"));
 		return "/accbook/m-accbook-detail";
+	}
+	
+	@RequestMapping("/saveAccbook.do")
+	@ResponseBody
+	public  Map<String, Object> saveAccbook(@RequestParam Map<String, Object> param) {
+		Map<String, Object> resultMap = accbookService.saveAccbook(param);
+		return resultMap;
 	}
 }

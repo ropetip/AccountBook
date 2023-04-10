@@ -57,8 +57,8 @@ function load() {
 	        { "data": "CLASS_NM" },
 	        { "data": "ITEM_NM" },
 	        { "data": "ACC_YMD" },
-	        { "data": "ASSET_NM" },
 	        { "data": "ACC_AMT" },
+	        { "data": "ASSET_NM" },
 	        { "data": "NOTE" },
       	],
       	columnDefs: [
@@ -159,7 +159,7 @@ function doSearch() {
 			alert("데이터를 가져오는데 실패하였습니다.");
 		}
 	}); */
-	CO.ajaxSubmit("/getAccbookList.do");	
+	CO.ajaxSubmit_dataTable("/getAccbookList.do");	
 }
 
 function showDetails(data) {
@@ -187,6 +187,33 @@ function onCompleteList() {
 	let dataRow0 = $this.dataTable.querySelector("[row-id='dataRow0']");
 	console.log(dataRow0); */
 }
+
+function doSave() {
+	const data = new FormData(document.querySelector("#fm"));
+	const date = document.querySelectorAll("[type=date]");
+	const currency = document.querySelectorAll("[type=currency]");
+	
+	date.forEach((elem) => {
+		if (elem.value) {
+		  const newValue = elem.value.replace(/-/g, ""); // - 제거
+		  data.set(elem.name, newValue); // 수정된 값으로 set
+		}
+	});
+	
+	currency.forEach((elem) => {
+		if (elem.value) {
+		  const newValue = elem.value.replace(/,/g, ""); // - 제거
+		  data.set(elem.name, newValue); // 수정된 값으로 set
+		}
+	});
+
+  	CO.ajaxSubmit("/saveAccbook.do", data, () => {
+    	alert("성공");
+  	}, () => {
+	    alert("데이터를 가져오는데 실패하였습니다.");
+  	});
+}
+
 </script>
 </head>
 <body>
@@ -211,57 +238,57 @@ function onCompleteList() {
 	       		</tr> -->
 	       	</tbody>
 		</table>
-	</form>
-	
-	<!-- Modal -->
-	<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">가계부 상세</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">분류</label>
-						<div class="col-sm-10">
-							<select set-data="data.CLASS_NM" class="form-select" aria-label="Default select example"></select>
+		
+		<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">가계부 상세</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label">분류</label>
+							<div class="col-sm-10">
+								<select set-data="CLASS_CD" name="classNm" class="form-select" aria-label="Default select example"></select>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label">항목</label>
+							<div class="col-sm-10">
+								<input col-id="ITEM_NM" name="itemNm" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="inputDate" class="col-sm-2 col-form-label">일자</label>
+							<div class="col-sm-10">
+								<input type="date" name="accYmd" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label">금액</label>
+							<div class="col-sm-10">
+								<input type="currency" col-id="ACC_AMT" name="accAmt" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label">내용</label>
+							<div class="col-sm-10">
+								<input col-id="NOTE" name="note" class="form-control">
+							</div>
 						</div>
 					</div>
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">항목</label>
-						<div class="col-sm-10">
-							<input col-id="ITEM_NM" class="form-control">
-						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" onClick="doSave();">Save changes</button>
 					</div>
-					<div class="row mb-3">
-						<label for="inputDate" class="col-sm-2 col-form-label">일자</label>
-						<div class="col-sm-10">
-							<input type="date" class="form-control">
-						</div>
-					</div>
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">금액</label>
-						<div class="col-sm-10">
-							<input type="currency" col-id="ACC_AMT" class="form-control">
-						</div>
-					</div>
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">내용</label>
-						<div class="col-sm-10">
-							<input col-id="NOTE" class="form-control">
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div> <!-- Modal -->
+		
+	</form>
 	
 </body>
 </html>

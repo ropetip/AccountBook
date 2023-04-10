@@ -27,4 +27,27 @@
 		AND A.CODE_TYPE_ID = 'CLASS_CD'
 	</select>
 	
+	<insert id="insertAccbook" parameterType="map">
+		/* accbook.insertAccbook */
+		INSERT INTO T_ACCBOOK
+		(
+				ACC_ID
+			 , USR_ID
+			 , CLASS_NM
+			 , ITEM_NM
+			 , ACC_YMD
+			 , ACC_AMT
+			 , NOTE
+		) 
+		VALUES 
+		(
+			#{accId}
+			, 'ADMIN'
+			, #{classNm}
+			, #{itemNm}
+			, #{accYmd}
+			, #{accAmt}
+			, #{note}
+		)
+	</insert>
 </mapper>

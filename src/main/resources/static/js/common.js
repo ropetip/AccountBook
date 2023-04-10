@@ -32,8 +32,22 @@ let CO = {
 	isObject: function(obj) {
 		return typeof obj === "object" && obj !== null;
 	},
+	
+	ajaxSubmit: function(url, data, onSucess, onError) {
+		$.ajax({
+			url: url
+			, type: "post"
+			, data: data
+			, dataType: "json"
+			, processData: false
+			, contentType: false
+			, success: onSucess
+			, error: onError
+		});
+	},
+	
 	// dataTable 그리기
-	ajaxSubmit: function(url, data) {
+	ajaxSubmit_dataTable: function(url, data) {
 		table.clear().draw();
 
 		$.ajax({
@@ -71,8 +85,30 @@ let CO = {
 	callback_code: function(data, status, error) {
 		if (status == "success") {
 			for (let i = 0; i < data.length; i++) {
-				//let keys = Object.getOwnPropertyNames(data[i]);
-				console.log(data[i]);
+				const code = data[i].CODE;
+				const codeNm = data[i].CODE_NM;
+				
+				const select = document.querySelectorAll("select");
+					
+				select.forEach(function(item) {
+					  
+			        // "선택" 옵션 추가
+			        if (!item.querySelector('option[value=""]')) {
+						const option = document.createElement("option");
+						option.value = "";
+						option.text = "선택";
+						item.appendChild(option);
+			        }
+					// 데이터 옵션 추가
+					const setData = item.getAttribute("set-data");
+					if(code === setData) {
+						const option = document.createElement("option");
+						option.value = codeNm;
+						option.text = codeNm;
+						item.appendChild(option);
+					}
+					
+				});
 			}
 		} else {
 			alert(data.responseJSON.status + " " + data.responseJSON.error);
