@@ -38,21 +38,31 @@ public class AccbookService {
 		return resultMap;
 	}
 	
-	public Map<String, Object> saveAccbook(@RequestParam Map<String, Object> param) {
+	public Map<String, Object> insertAccbook(@RequestParam Map<String, Object> param) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		System.out.println("param=>"+param.toString());
-		param.put("accId", "a1");
+
 		int cnt = sqlSession.insert(NAMESPACE + "insertAccbook", param);
 		if(cnt > 0) {
 			resultMap.put("result_code", "S");
 			resultMap.put("result_msg", "저장되었습니다.");
 		} else {
 			resultMap.put("result_code", "E");
-			resultMap.put("result_msg", "저장 실패.");
+			resultMap.put("result_msg", "저장에 실패하였습니다.");
 		}
-		
-		System.out.println(resultMap.toString());
-		
+		return resultMap;
+	}
+	
+	public Map<String, Object> updateAccbook(@RequestParam Map<String, Object> param) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		int cnt = sqlSession.update(NAMESPACE + "updateAccbook", param);
+		if(cnt > 0) {
+			resultMap.put("result_code", "S");
+			resultMap.put("result_msg", "저장되었습니다.");
+		} else {
+			resultMap.put("result_code", "E");
+			resultMap.put("result_msg", "저장에 실패하였습니다.");
+		}
 		return resultMap;
 	}
 }

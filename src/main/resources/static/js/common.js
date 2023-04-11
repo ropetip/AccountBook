@@ -1,15 +1,16 @@
 /**
  * 
  */
-window.addEventListener("load", (e) => {
+window.addEventListener("load", () => {
 	setComma();
 });
 
-// input[type=currency]이라면 자동으로 콤마 세팅  
+/** input[data-type=currency]이라면 자동으로 콤마 세팅
+ */   
 function setComma() {
-	document.querySelectorAll("[type='currency']").forEach(function(element) {
+	document.querySelectorAll("[data-type='currency']").forEach(function(element) {
 		element.addEventListener("keyup", function() {
-			let currency = document.querySelectorAll("[type='currency']");
+			let currency = document.querySelectorAll("[data-type='currency']");
 			currency.forEach(function(obj, idx) {
 				obj.value = comma(uncomma(obj.value));
 			});
@@ -27,12 +28,36 @@ function uncomma(str) {
 	return str.replace(/[^\d]+/g, '');
 }
 
+/** 날짜 형식으로 변환 
+	dateStr: 입력 값
+	type: 날짜 구분 값 
+*/
+function formatDate(dateStr, type) {
+	return `${dateStr.slice(0, 4)}`+type+`${dateStr.slice(4, 6)}`+type+`${dateStr.slice(6, 8)}`;
+}
+
+function showModal(modal_id) {
+	$("#"+modal_id).modal("show");
+}
+
+function hideModal(modal_id) {
+	$("#"+modal_id).modal("hide");
+}
+
 let CO = {
 	// 객체 유무 체크
 	isObject: function(obj) {
 		return typeof obj === "object" && obj !== null;
 	},
 	
+	// confirm창
+	confirm: function(message, callback) {
+		if (confirm(message)) {
+	    	callback();
+		}
+	},
+	
+	// ajax 전송
 	ajaxSubmit: function(url, data, onSucess, onError) {
 		$.ajax({
 			url: url

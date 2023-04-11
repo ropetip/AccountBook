@@ -9,8 +9,8 @@
 				 , A.USR_ID
 				 , A.CLASS_NM
 				 , A.ITEM_NM
-				 , A.ACC_YMD
-				 , A.ACC_AMT
+				 , DATE_FORMAT(A.ACC_YMD, '%Y-%m-%d') AS ACC_YMD
+				 , FORMAT(A.ACC_AMT, 0) AS ACC_AMT
 				 , A.ASSET_NM
 				 , A.NOTE
 		 FROM T_ACCBOOK A
@@ -50,4 +50,16 @@
 			, #{note}
 		)
 	</insert>
+	
+	<update id="updateAccbook" parameterType="map">
+		/* accbook.updateAccbook */
+		UPDATE T_ACCBOOK
+		SET CLASS_NM = #{classNm}
+			, ITEM_NM = #{itemNm}
+			, ACC_YMD = #{accYmd}
+			, ACC_AMT = #{accAmt}
+			, NOTE = #{note}
+		WHERE ACC_ID = #{accId}
+	</update>
+	
 </mapper>

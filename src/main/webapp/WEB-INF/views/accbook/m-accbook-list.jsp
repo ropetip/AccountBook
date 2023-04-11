@@ -13,24 +13,7 @@
 window.addEventListener("load", (e) => {
 	load();
 	
-	let result = CO.ajaxSubmit_code("/getCommonCode.do");
-	console.log(result);
-	
-	/* let data = {
-		CLASS_NM : [
-			{"key": "10", "val": "수입"},
-			{"key": "20", "val": "지출"}
-		],
-	}; */
-	
-	let select = document.querySelectorAll("select");
-	select.forEach(function(item){
-	    let setData = item.getAttribute("set-data");
-	    if(setData.length > 0){
-	    	/* let obj = JSON.parse(setData);
-	    	console.log(obj); */
-	    }
-	});
+	CO.ajaxSubmit_code("/getCommonCode.do");
 	
 });
 
@@ -54,6 +37,7 @@ function load() {
 		      "dataSrc": ""
 	    },
 	    columns: [
+	        { "data": "ACC_ID" },
 	        { "data": "CLASS_NM" },
 	        { "data": "ITEM_NM" },
 	        { "data": "ACC_YMD" },
@@ -73,6 +57,11 @@ function load() {
       			createdCell: function (td, cellData, rowData, row, col) {
 					$(td).attr('contenteditable', "false");
       		    }
+   			},
+   			{
+     			targets: [0],
+     			visible: false,
+   		      	searchable: false
    			},
    		],
 		scrollY: 500,
@@ -120,7 +109,8 @@ function load() {
 		 },
     } );
 	
-	$("#dataTable tbody").on("click", "tr", function() {	
+	$("#dataTable tbody").on("click", "tr", function() {
+		this.style.cursor = "pointer";
 		const isEmptyTable = this.querySelector(".dataTables_empty") !== null ? true : false;
 		if(!isEmptyTable) {
 			let data = table.row(this).data(); // 클릭된 행의 데이터 가져오기
@@ -163,22 +153,34 @@ function doSearch() {
 }
 
 function showDetails(data) {
+	const dataModal = document.querySelector("#dataModal");
+	
+	// 데이터 있는 경우
 	if(CO.isObject(data)) {
-		const modalBody = document.querySelector(".modal-body");
-		let input = modalBody.querySelectorAll("input");
-		input.forEach( (elem) => {
-			let col_id = elem.getAttribute("col-id");
-			let data_idx = Object.getOwnPropertyNames(data).indexOf(col_id);
+		const element = dataModal.querySelectorAll("input, select");
+		element.forEach( (elem) => {
+			const col_id = elem.getAttribute("col-id");
+			const data_idx = Object.getOwnPropertyNames(data).indexOf(col_id);
 			if( data_idx > -1 ) {
-				elem.value = data[Object.getOwnPropertyNames(data)[data_idx]]; 
+				let value = data[Object.getOwnPropertyNames(data)[data_idx]];
+				elem.value = value;  
 			}	
 		});
-	}
-    $("#dataModal").modal("show");
+	}	
+	// 데이터 없는 경우
+	else {	
+		const elements = document.querySelectorAll("#dataModal select, #dataModal input");
+		elements.forEach((elem) => {
+			elem.value = "";
+		});
+	} 
+	
+    showModal("dataModal");
     // 모달 창 닫기 버튼 클릭 이벤트 처리
     $("#dataModal [data-dismiss='modal']").on("click", function() {
-        $("#dataModal").modal("hide");
+        hideModal("dataModal");
     });
+	
 }
 
 //조회 완료 후
@@ -188,10 +190,11 @@ function onCompleteList() {
 	console.log(dataRow0); */
 }
 
+// 저장
 function doSave() {
 	const data = new FormData(document.querySelector("#fm"));
 	const date = document.querySelectorAll("[type=date]");
-	const currency = document.querySelectorAll("[type=currency]");
+	const currency = document.querySelectorAll("[data-type=currency]");
 	
 	date.forEach((elem) => {
 		if (elem.value) {
@@ -206,12 +209,22 @@ function doSave() {
 		  data.set(elem.name, newValue); // 수정된 값으로 set
 		}
 	});
-
-  	CO.ajaxSubmit("/saveAccbook.do", data, () => {
-    	alert("성공");
-  	}, () => {
-	    alert("데이터를 가져오는데 실패하였습니다.");
-  	});
+	
+	for(let [key, value] of data.entries()) {
+	    console.log(key, value);
+	}
+	
+	CO.confirm("저장하시겠습니까?", function() {
+	  	CO.ajaxSubmit("/saveAccbook.do", data, (result) => {
+	  		// 성공 콜백 함수
+	    	alert(result.result_msg);
+	    	hideModal("dataModal");
+	    	doSearch();
+	  	}, (xhr, status, error) => {
+	  		// 실패 콜백 함수
+	  	    alert("서버와의 통신이 실패하였습니다. (" + error + ")");
+	  	});
+	});
 }
 
 </script>
@@ -221,6 +234,7 @@ function doSave() {
 		<table id="dataTable" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr>
+					<th>번호</th>
 					<th>분류</th>
 					<th>항목</th>
 					<th>일자</th>
@@ -240,6 +254,7 @@ function doSave() {
 		</table>
 		
 		<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<input type="hidden" id="accId" name="accId" col-id="ACC_ID">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -252,7 +267,7 @@ function doSave() {
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label">분류</label>
 							<div class="col-sm-10">
-								<select set-data="CLASS_CD" name="classNm" class="form-select" aria-label="Default select example"></select>
+								<select col-id="CLASS_NM" set-data="CLASS_CD" name="classNm" class="form-select" aria-label="Default select example"></select>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -264,13 +279,13 @@ function doSave() {
 						<div class="row mb-3">
 							<label for="inputDate" class="col-sm-2 col-form-label">일자</label>
 							<div class="col-sm-10">
-								<input type="date" name="accYmd" class="form-control">
+								<input type="date" col-id="ACC_YMD" name="accYmd" class="form-control">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label">금액</label>
 							<div class="col-sm-10">
-								<input type="currency" col-id="ACC_AMT" name="accAmt" class="form-control">
+								<input data-type="currency" col-id="ACC_AMT" name="accAmt" class="form-control">
 							</div>
 						</div>
 						<div class="row mb-3">

@@ -24,7 +24,7 @@ public class MybatisConfig {
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/**/*.xml"));
         SqlSessionFactory factory = factoryBean.getObject();
-        factory.getConfiguration().setMapUnderscoreToCamelCase(true);        
+        factory.getConfiguration().setMapUnderscoreToCamelCase(true);
         return factoryBean.getObject();
     }
     

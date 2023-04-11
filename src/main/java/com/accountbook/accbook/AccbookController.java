@@ -1,5 +1,6 @@
 package com.accountbook.accbook;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +53,14 @@ public class AccbookController {
 	@RequestMapping("/saveAccbook.do")
 	@ResponseBody
 	public  Map<String, Object> saveAccbook(@RequestParam Map<String, Object> param) {
-		Map<String, Object> resultMap = accbookService.saveAccbook(param);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String accId = param.get("accId").toString();
+		if("".equals(accId)) {
+			resultMap = accbookService.insertAccbook(param);	
+		} else {
+			resultMap = accbookService.updateAccbook(param);	
+		}
+		
 		return resultMap;
 	}
 }
