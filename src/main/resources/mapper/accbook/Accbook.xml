@@ -62,4 +62,10 @@
 		WHERE ACC_ID = #{accId}
 	</update>
 	
+	<delete id="deleteAccbook" parameterType="map">
+		/* accbook.updateAccbook */
+		DELETE 
+		FROM T_ACCBOOK
+		WHERE ACC_ID = #{accId} 
+	</delete>
 </mapper>

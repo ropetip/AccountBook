@@ -190,6 +190,23 @@ function onCompleteList() {
 	console.log(dataRow0); */
 }
 
+// 삭제
+function doDelete() {
+	const data = new FormData(document.querySelector("#fm"));
+	
+	CO.confirm("삭제하시겠습니까?", function() {
+	  	CO.ajaxSubmit("/deleteAccbook.do", data, (result) => {
+	  		// 성공 콜백 함수
+	    	alert(result.result_msg);
+	    	hideModal("dataModal");
+	    	doSearch();
+	  	}, (xhr, status, error) => {
+	  		// 실패 콜백 함수
+	  	    alert("서버와의 통신이 실패하였습니다. (" + error + ")");
+	  	});
+	});
+}
+
 // 저장
 function doSave() {
 	const data = new FormData(document.querySelector("#fm"));
@@ -296,8 +313,9 @@ function doSave() {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" onClick="doSave();">Save changes</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary" name="delBtn" onClick="doDelete();">삭제</button>
+						<button type="button" class="btn btn-primary" onClick="doSave();">저장</button>
 					</div>
 				</div>
 			</div>

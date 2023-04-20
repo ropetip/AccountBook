@@ -63,4 +63,12 @@ public class AccbookController {
 		
 		return resultMap;
 	}
+	
+	@RequestMapping("/deleteAccbook.do")
+	@ResponseBody
+	public  Map<String, Object> deleteAccbook(@RequestParam Map<String, Object> param) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = accbookService.deleteAccbook(param);	
+		return resultMap;
+	}
 }
