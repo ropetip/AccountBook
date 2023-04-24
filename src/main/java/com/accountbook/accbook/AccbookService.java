@@ -3,6 +3,7 @@ package com.accountbook.accbook;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -40,7 +41,11 @@ public class AccbookService {
 	
 	public Map<String, Object> insertAccbook(@RequestParam Map<String, Object> param) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-
+		
+		UUID uuid = UUID.randomUUID();
+        String uniqueId = uuid.toString();
+		param.put("accId", uniqueId);
+		
 		int cnt = sqlSession.insert(NAMESPACE + "insertAccbook", param);
 		if(cnt > 0) {
 			resultMap.put("result_code", "S");

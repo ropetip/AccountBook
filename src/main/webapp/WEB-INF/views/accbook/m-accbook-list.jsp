@@ -207,12 +207,48 @@ function doDelete() {
 	});
 }
 
+// 유효성 검사
+function isValidate(fm){
+	const data = new FormData(fm);
+	
+	for(const [key, value] of data.entries()) {
+		if(value == "") {
+			const el = document.querySelector("[name='"+key+"']");
+			const label = el.parentNode.parentNode.querySelector("label").innerText;
+			
+			// 필수 값 체크
+			if(!el.required) {
+				continue;
+			}
+			
+			el.focus(); // 해당 요소에 포커스를 줌
+			
+			if (el.tagName === "INPUT") {
+				const inputType = el.type === "checkbox" ? "체크박스" : "입력 필드";
+			  	alert(label + " " + inputType + "에 값을 입력해주세요.");
+			  	return;
+			} else if (el.tagName === "SELECT") {
+			  	alert(label + "을/를 선택해 주세요.");
+			  	return;
+			}
+		}
+	}
+	
+	return true;
+}
+
 // 저장
 function doSave() {
-	const data = new FormData(document.querySelector("#fm"));
+	const fm = document.querySelector("#fm");
+	const data = new FormData(fm);
 	const date = document.querySelectorAll("[type=date]");
 	const currency = document.querySelectorAll("[data-type=currency]");
 	
+	if(!isValidate(fm)) {
+		return;
+	}
+	
+	// 날짜 제거
 	date.forEach((elem) => {
 		if (elem.value) {
 		  const newValue = elem.value.replace(/-/g, ""); // - 제거
@@ -220,16 +256,18 @@ function doSave() {
 		}
 	});
 	
+	// 콤마 제거
 	currency.forEach((elem) => {
 		if (elem.value) {
-		  const newValue = elem.value.replace(/,/g, ""); // - 제거
+		  const newValue = elem.value.replace(/,/g, ""); // , 제거
 		  data.set(elem.name, newValue); // 수정된 값으로 set
 		}
 	});
 	
-	for(let [key, value] of data.entries()) {
+	// 키 값 구하기
+	/* for(let [key, value] of data.entries()) {
 	    console.log(key, value);
-	}
+	} */
 	
 	CO.confirm("저장하시겠습니까?", function() {
 	  	CO.ajaxSubmit("/saveAccbook.do", data, (result) => {
@@ -284,25 +322,26 @@ function doSave() {
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label">분류</label>
 							<div class="col-sm-10">
-								<select col-id="CLASS_NM" set-data="CLASS_CD" name="classNm" class="form-select" aria-label="Default select example"></select>
+								<select col-id="CLASS_NM" set-data="CLASS_CD" name="classNm" 
+											class="form-select" aria-label="Default select example" required></select>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label">항목</label>
 							<div class="col-sm-10">
-								<input col-id="ITEM_NM" name="itemNm" class="form-control">
+								<input col-id="ITEM_NM" name="itemNm" class="form-control" required>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="inputDate" class="col-sm-2 col-form-label">일자</label>
 							<div class="col-sm-10">
-								<input type="date" col-id="ACC_YMD" name="accYmd" class="form-control">
+								<input type="date" col-id="ACC_YMD" name="accYmd" class="form-control" required>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label">금액</label>
 							<div class="col-sm-10">
-								<input data-type="currency" col-id="ACC_AMT" name="accAmt" class="form-control">
+								<input data-type="currency" col-id="ACC_AMT" name="accAmt" class="form-control" required>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -314,7 +353,7 @@ function doSave() {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" name="delBtn" onClick="doDelete();">삭제</button>
+						<button type="button" class="btn btn-danger" name="delBtn" onClick="doDelete();">삭제</button>
 						<button type="button" class="btn btn-primary" onClick="doSave();">저장</button>
 					</div>
 				</div>
