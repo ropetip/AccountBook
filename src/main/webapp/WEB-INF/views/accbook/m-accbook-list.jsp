@@ -29,6 +29,7 @@ window.addEventListener("load", (e) => {
 	S: DataTable의 스크롤바를 표시합니다.
 */
 var table; 
+	
 function load() {
 	table = $('#dataTable').DataTable( {
 		dom: 'BRlfrti',
@@ -78,6 +79,7 @@ function load() {
         pageLength: 10,     //페이지 당 글 개수 설정
         initComplete: function () {
         },
+        font: "Arial Unicode MS",
        	buttons: [
 			{ 
 				text: "추가",
@@ -91,6 +93,10 @@ function load() {
               		 doSearch();
 				}
 			},
+			"copy",
+            "excel",
+            "pdf",
+            "print"
         ],
 		language: {
 		    emptyTable: "데이터가 없습니다.",
@@ -228,7 +234,7 @@ function isValidate(fm){
 			  	alert(label + " " + inputType + "에 값을 입력해주세요.");
 			  	return;
 			} else if (el.tagName === "SELECT") {
-			  	alert(label + "을/를 선택해 주세요.");
+			  	alert(label + " 을/를 선택해 주세요.");
 			  	return;
 			}
 		}

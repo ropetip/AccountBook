@@ -7,7 +7,7 @@ $(document).ready(function () {
 		dom: 'Bfrtip',
 		buttons: [
 			"copy",
-            "xls",
+            "excel",
             "pdf",
             "print"
 		]
