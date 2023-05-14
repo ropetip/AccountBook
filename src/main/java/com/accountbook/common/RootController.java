@@ -17,10 +17,4 @@ public class RootController {
 		return "main";
 	}
 	
-	@RequestMapping("/join.do")
-	public String join(Model model) {
-		return "join";
-	}
-	
-	
 }
