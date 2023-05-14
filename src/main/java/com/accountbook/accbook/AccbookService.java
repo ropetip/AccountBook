@@ -33,8 +33,9 @@ public class AccbookService {
 	}
 	
 	public List<Map<String, Object>> getCommonCode(@RequestParam Map<String, Object> param) {
-		log.info(param.toString());
+		
 		List<Map<String, Object>> resultMap = sqlSession.selectList(NAMESPACE + "getCommonCode", param);
+		System.out.println(resultMap.toString());
 		return resultMap;
 	}
 	
