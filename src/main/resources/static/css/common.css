@@ -1,0 +1,27 @@
+/*--------------------------------------------------------------
+# common
+--------------------------------------------------------------*/
+/* 텍스트를 가운데 정렬 */
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}

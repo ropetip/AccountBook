@@ -24,7 +24,7 @@
 		FROM T_CODE_TYPE A
 		     	, T_CODE B
 		WHERE A.CODE_TYPE_ID = B.CODE_TYPE_ID
-		AND A.CODE_TYPE_ID = 'CLASS_CD'
+		AND A.CODE_TYPE_ID = #{codeTypeId}
 	</select>
 	
 	<insert id="insertAccbook" parameterType="map">
@@ -37,6 +37,7 @@
 			 , ITEM_NM
 			 , ACC_YMD
 			 , ACC_AMT
+			 , ASSET_NM
 			 , NOTE
 		) 
 		VALUES 
@@ -47,6 +48,7 @@
 			, #{itemNm}
 			, #{accYmd}
 			, #{accAmt}
+			, #{assetNm}
 			, #{note}
 		)
 	</insert>
@@ -58,6 +60,7 @@
 			, ITEM_NM = #{itemNm}
 			, ACC_YMD = #{accYmd}
 			, ACC_AMT = #{accAmt}
+			, ASSET_NM = #{assetNm}
 			, NOTE = #{note}
 		WHERE ACC_ID = #{accId}
 	</update>
