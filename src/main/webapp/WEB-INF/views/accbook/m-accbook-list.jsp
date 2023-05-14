@@ -13,11 +13,7 @@
 window.addEventListener("load", (e) => {
 	load();
 	
-	const CLASS_CD = {codeTypeId: 'CLASS_CD'};
-	CO.ajaxSubmit_code("/getCommonCode.do", CLASS_CD); 
-	
-	const ASSET_CD = {codeTypeId: 'ASSET_CD'};
-	CO.ajaxSubmit_code("/getCommonCode.do", ASSET_CD);
+	CO.ajaxSubmit_code("/getCommonCode.do");
 	
 });
 
@@ -50,20 +46,23 @@ function load() {
 	        { "data": "ASSET_NM" },
 	        { "data": "NOTE" },
       	],
-      	// 컬럼 설정
       	columnDefs: [
-      		{ targets: [0], width: "0", className: "text-center", visible: false, searchable: false},
-      		{ targets: [1], width: "60px", className: "text-center"},
-      		{ targets: [2], width: "100px", className: "text-center"},
-      		{ targets: [3], width: "80px", className: "text-center"},
-      		{ targets: [4], width: "80px", className: "text-right"},
-      		{ targets: [5], width: "80px", className: "text-center"},
-      		{ targets: [6], width: "120px", className: "text-left"},
+   			{
+     			targets: [-1], defaultContent: "",
+      			createdCell: function (td, cellData, rowData, row, col) {
+					$(td).attr('contenteditable', "false");
+      		    }
+   			},
       		{
      			targets: "_all", className: "editable", defaultContent: "",
       			createdCell: function (td, cellData, rowData, row, col) {
 					$(td).attr('contenteditable', "false");
-      		    },
+      		    }
+   			},
+   			{
+     			targets: [0],
+     			visible: false,
+   		      	searchable: false
    			},
    		],
 		scrollY: 500,
@@ -80,19 +79,8 @@ function load() {
         pageLength: 10,     //페이지 당 글 개수 설정
         initComplete: function () {
         },
+        font: "Arial Unicode MS",
        	buttons: [
-       		{ 
-				text: "이미지",
-              	action: function ( e, dt, node, config ) {
-              		html2canvas(document.querySelector('.dataTables_scroll')).then(function(canvas) {
-              		    // 캡처된 이미지를 파일로 저장합니다.
-              		    var link = document.createElement('a');
-              		    link.download = 'dataTable.png';
-              		    link.href = canvas.toDataURL();
-              		    link.click();
-              		});
-				}
-			},
 			{ 
 				text: "추가",
               	action: function ( e, dt, node, config ) { 
@@ -360,13 +348,6 @@ function doSave() {
 							<label class="col-sm-2 col-form-label">금액</label>
 							<div class="col-sm-10">
 								<input data-type="currency" col-id="ACC_AMT" name="accAmt" class="form-control" required>
-							</div>
-						</div>
-						<div class="row mb-3">
-							<label class="col-sm-2 col-form-label">자산</label>
-							<div class="col-sm-10">
-								<select col-id="ASSET_NM" set-data="ASSET_CD" name="assetNm" 
-											class="form-select" aria-label="Default select example" required></select>
 							</div>
 						</div>
 						<div class="row mb-3">
