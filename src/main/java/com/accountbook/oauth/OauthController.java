@@ -1,76 +1,62 @@
 package com.accountbook.oauth;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonParser;
+import com.accountbook.config.GlobalConfig;
 
 @Controller
-public class OauthController {
+public class OAuthController {
 	
 	Logger log = LoggerFactory.getLogger(getClass());
-	public static String API_KEY = "26bdf2ba577fd4cfec9386de14115d38";
+
+	@Autowired
+	private GlobalConfig config;
 	
-	@ResponseBody
 	@GetMapping("/oauth/kakao")
-	public void kakaoCalllback(@RequestParam String code) {
-		//https://kauth.kakao.com/oauth/authorize?client_id=26bdf2ba577fd4cfec9386de14115d38&redirect_uri=http://localhost:9090/oauth/kakao&response_type=code
-		log.info("code : " + code);
-	}
-	
-	public String getKakaoAccessToken(String code) {
-
-		String accessToken = "";
-		String reqURL = "https://kauth.kakao.com/oauth/token";
-
-		try {
-			URL url = new URL(reqURL);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로 설정
-			conn.setRequestMethod("POST");
-			conn.setDoOutput(true);
-
-			// POST 요처에 필요로 요구하는 파라미터를 스트림을 통해 전송
-			BufferedWriter bw = new BufferedWriter((new OutputStreamWriter(conn.getOutputStream())));
-			StringBuilder sb = new StringBuilder();
-			sb.append("grant_type=authorization_code");
-			sb.append("&client_id={code}");
-			sb.append("&redirect_uri=http://localhost:8080/api/oauth/kakao");
-			sb.append("&code=" + code);
-			bw.write(sb.toString());
-			bw.flush();
-
-			// 결과 코드가 200이라면 성공
-			int responseCode = conn.getResponseCode();
-			log.info("responseCode : " + responseCode);
-
-			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-			String result = getRequestResult(conn);
-
-			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(result);
-
-			accessToken = element.getAsJsonObject().get("access_token").getAsString();
-
-			log.info("access_token : " + accessToken);
-
-			bw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return accessToken;
+	@ResponseBody
+	public String kakaoCallback(String code) {
+		// POST 방식으로 key=value 데이터를 요청 (카카오쪽으로)
+		// 이 때 필요한 라이브러리가 RestTemplate을 쓰면 http요청을 편하게 할 수 있다.
+		RestTemplate rt = new RestTemplate();
+		
+		// HTTP POST를 요청할 때 보내느 데이터(body)를 설명해주는 헤더도 만들어 같이 보내준다.
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		// body 데이터를 담을 오브젝트인 MultiValueMap을 만들어보자
+		// body는 보통 key, value의 쌍으로 이루어지기 때문에 자바에서 제공해주는 MultiValueMap 타입을 사용한다.
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("grant_type", "authorization_code");
+		params.add("client_id", config.getOauthKakaoClientId());
+		params.add("redirect_uri", config.getServerUrl()+"/oauth/kakao");
+		params.add("code", code);
+		
+		// 요청하기 위해 헤더(Header)와 데이터(Body)를 합친다.
+		// kakaoTokenRequest는 데이터(Body)와 헤더(Header)를 Entity가 된다.
+		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+		
+		// POST 방식으로 Http 요청한다. 그리고 response 변수의 응답 받는다.
+		ResponseEntity<String> response = rt.exchange(
+				"https://kauth.kakao.com/oauth/token", // https://{요청할 서버 주소}
+				HttpMethod.POST, // 요청할 방식
+				kakaoTokenRequest, // 요청할 때 보낼 데이터
+				String.class // 요청 시 반환되는 데이터 타입
+		);
+		
+		System.out.println(response);
+		
+		return "카카오 토큰 요청 완료 : 토큰 요청에 대한 응답 : "+response;
 	}
 }

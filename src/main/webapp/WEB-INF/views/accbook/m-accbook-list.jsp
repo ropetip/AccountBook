@@ -4,10 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <style>
-.editable { 
-	border-radius:5px;
-	margin:5px; 
-}
 </style>
 <script>
 window.addEventListener("load", (e) => {
@@ -60,7 +56,7 @@ function load() {
       		{ targets: [5], width: "80px", className: "text-center"},
       		{ targets: [6], width: "120px", className: "text-left"},
       		{
-     			targets: "_all", className: "editable", defaultContent: "",
+     			targets: "_all", className: "cursor-pointer", defaultContent: "",
       			createdCell: function (td, cellData, rowData, row, col) {
 					$(td).attr('contenteditable', "false");
       		    },
@@ -70,16 +66,26 @@ function load() {
 		scrollCollapse: true,
 		editable: true, // 편집 가능 설정
 		responsive: false,  //반응형 설정
-        autoWidth: false,
-        destroy: true,
-        processing: true,
-        serverSide: false,
-        searching: true,    //검색란 표시 설정
-        ordering: true,      //글 순서 설정
-        paging: false,        //페이징 표시 설정
-        pageLength: 10,     //페이지 당 글 개수 설정
-        initComplete: function () {
-        },
+		autoWidth: false,
+		destroy: true,
+		processing: true,
+		serverSide: false,
+		searching: true,    //검색란 표시 설정
+		ordering: true,      //글 순서 설정
+		paging: false,        //페이징 표시 설정
+		pageLength: 10,     //페이지 당 글 개수 설정
+		initComplete: function () {
+		},
+		rowCallback: function(row, data, index) {
+			$(row).hover(
+				function() {
+					$(this).addClass('highlight');
+				},
+				function() {
+					$(this).removeClass('highlight');
+				}
+	    	);
+		},
        	buttons: [
        		{ 
 				text: "이미지",
@@ -106,8 +112,20 @@ function load() {
 				}
 			},
 			"copy",
-            "excel",
-            "pdf",
+			{
+				extend: 'excel',
+				text: 'Excel',
+				exportOptions: {
+					columns: ':visible:not(:first-child)' // 첫 번째 컬럼을 제외한 모든 보이는 컬럼 선택
+				}
+			},
+			{
+				extend: 'pdf',
+				text: 'Pdf',
+				exportOptions: {
+					columns: ':visible:not(:first-child)' // 첫 번째 컬럼을 제외한 모든 보이는 컬럼 선택
+				}
+			},
             "print"
         ],
 		language: {
@@ -128,7 +146,7 @@ function load() {
     } );
 	
 	$("#dataTable tbody").on("click", "tr", function() {
-		this.style.cursor = "pointer";
+		//this.style.cursor = "pointer";
 		const isEmptyTable = this.querySelector(".dataTables_empty") !== null ? true : false;
 		if(!isEmptyTable) {
 			let data = table.row(this).data(); // 클릭된 행의 데이터 가져오기

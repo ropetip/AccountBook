@@ -6,16 +6,12 @@
 
 <script>
 $(document).ready(function () {
-	/* document.querySelector('form').addEventListener('submit', function(event) {
-		if (!event.target.checkValidity()) {
-			event.preventDefault(); // 폼 제출 방지
-			document.querySelector('button[type="submit"]').classList.add('invalid'); // :invalid 클래스 추가
-		}
-	}); */
 });
 
-function doLogin() {
-	CO.ajaxSubmit("/oauth/kakao", data, (result) => {
+function doKakaoLogin() {
+	const url = "https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${SERVER_URL}/oauth/kakao&response_type=code"; 
+	location.href = url;
+	/* CO.ajaxSubmit("/oauth/kakao", null, (result) => {
   		// 성공 콜백 함수
     	alert(result.result_msg);
     	hideModal("dataModal");
@@ -23,7 +19,7 @@ function doLogin() {
   	}, (xhr, status, error) => {
   		// 실패 콜백 함수
   	    alert("서버와의 통신이 실패하였습니다. (" + error + ")");
-  	});
+  	}); */
 }
 </script>
 
@@ -82,7 +78,8 @@ function doLogin() {
 										</div>
 										<div class="col-12">
 											<p class="small mb-0">
-												Already have an account? <a onclick="doLogin();">Log in</a>
+												Already have an account? 
+												<a onclick="doKakaoLogin();"><img height="38px" src="resources/img/kakao_login_medium_narrow.png"/></a>
 											</p>
 										</div>
 									</form>

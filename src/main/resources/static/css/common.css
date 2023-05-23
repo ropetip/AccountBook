@@ -25,3 +25,20 @@
 .show {
 	display: block;
 }
+
+/* row mouse hover시 색상 변경 */
+.highlight {
+	background-color: #f0f8ff;
+	font-weight: bold;
+}
+
+.highlight:focus,
+.highlight:hover {
+	outline: none;
+	background-color: #e0eaf1;
+	box-shadow: 0 0 0 3px rgba(0, 120, 255, 0.3);
+}
+
+a {
+	cursor: pointer;
+}

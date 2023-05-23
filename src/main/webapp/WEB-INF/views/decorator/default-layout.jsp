@@ -28,23 +28,6 @@
 <link href="resources/vendor/quill/quill.bubble.css" rel="stylesheet"/>
 <link href="resources/vendor/remixicon/remixicon.css" rel="stylesheet"/>
 <link href="resources/vendor/simple-datatables/style.css" rel="stylesheet"/>
-<!-- Template Main CSS File -->
-<link href="resources/css/style.css" rel="stylesheet"/>
-<link href="resources/css/common.css" rel="stylesheet"/>
-
- 
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
- <!-- Vendor JS Files -->
-<script src="resources/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="resources/vendor/chart.js/chart.umd.js"></script>
-<script src="resources/vendor/echarts/echarts.min.js"></script>
-<script src="resources/vendor/quill/quill.min.js"></script>
-<script src="resources/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="resources/vendor/tinymce/tinymce.min.js"></script>
-<script src="resources/vendor/php-email-form/validate.js"></script>
-<script src="resources/js/main.js"></script>
-<script src="resources/js/common.js"></script>
 
 <!-- dataTable -->
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
@@ -63,6 +46,22 @@
 <link href="https://cdn.datatables.net/searchpanes/2.1.2/css/searchPanes.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/select/1.6.2/css/select.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/staterestore/1.2.2/css/stateRestore.dataTables.min.css" rel="stylesheet"/>
+<!-- Template Main CSS File -->
+<link href="resources/css/style.css" rel="stylesheet"/>
+<link href="resources/css/common.css" rel="stylesheet"/>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+ <!-- Vendor JS Files -->
+<script src="resources/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="resources/vendor/chart.js/chart.umd.js"></script>
+<script src="resources/vendor/echarts/echarts.min.js"></script>
+<script src="resources/vendor/quill/quill.min.js"></script>
+<script src="resources/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="resources/vendor/tinymce/tinymce.min.js"></script>
+<script src="resources/vendor/php-email-form/validate.js"></script>
+<script src="resources/js/common.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -91,7 +90,8 @@
 <script src="https://cdn.datatables.net/staterestore/1.2.2/js/dataTables.stateRestore.min.js"></script>
 
 <!-- custom js -->
-  <script src="resources/js/html2canvas.min.js"></script>
+
+<script src="resources/js/html2canvas.min.js"></script> <!-- 캡처이미지 -->
 
 <sitemesh:write property='head' />
 
@@ -396,6 +396,7 @@ function join() {
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
 		<i class="bi bi-arrow-up-short"></i>
 	</a>
-	
+
+<script src="resources/js/main.js"></script>	
 </body>
 </html>

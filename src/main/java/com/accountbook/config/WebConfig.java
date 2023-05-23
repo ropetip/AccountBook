@@ -25,4 +25,9 @@ public class WebConfig implements WebMvcConfigurer{
 		filter.setFilter(new SitemeshConfig());
 		return filter;
 	}
+	
+	@Bean
+	public GlobalConfig config() {
+		return new GlobalConfig();
+	}
 }
