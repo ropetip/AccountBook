@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String oauth_email = (String)session.getAttribute("oauth_email");
+	String oauth_nickname = (String)session.getAttribute("oauth_nickname");
+	
+	oauth_email = oauth_email == null ? "" : oauth_email; 
+	oauth_nickname = oauth_nickname == null ? "" : oauth_nickname; 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,6 +105,20 @@
 <script>
 
 $(document).ready(function () {
+	const nickname = "<%=oauth_nickname%>";
+	
+	if("<%=oauth_email%>" != "") {
+		document.querySelector("#guest").classList.add("hide");
+		document.querySelector("#userProfile").classList.remove("hide");
+		
+		var userName = document.querySelectorAll("[name='userName']");
+		for (var i = 0; i < userName.length; i++) {
+			userName[i].innerHTML = nickname;
+		}
+	} else {
+		document.querySelector("#guest").classList.remove("hide");
+		document.querySelector("#userProfile").classList.add("hide");
+	}
 });
 
 function go(url) {
@@ -106,6 +127,11 @@ function go(url) {
 
 function join() {
 	go("join.do");
+}
+
+function logout() {
+	const url = "https://kauth.kakao.com/oauth/logout?client_id=${CLIENT_ID}&logout_redirect_uri=${SERVER_URL}/oauth/kakao/logout"; 
+	location.href = url;
 }
 </script>
 </head>
@@ -289,20 +315,21 @@ function join() {
 				<!-- End Messages Nav -->
 
 				<!-- TODO: 로그인 전 영역-->
-				<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+				<div id="guest" class="btn-group" role="group" aria-label="Basic mixed styles example">
 					<button type="button" class="btn btn-light">로그인</button>
 					<button type="button" class="btn btn-light" onclick="join();">회원가입</button>
 				</div>
 
 				<!-- TODO: 로그인 후 영역, 잠시 숨김-->
-				<li class="nav-item dropdown pe-3 hide">
+				<li id="userProfile" class="nav-item dropdown pe-3 hide">
 					<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-						<img src="resources/img/profile-img.jpg" alt="Profile" class="rounded-circle"> <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+						<img src="resources/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+						<span name="userName" class="d-none d-md-block dropdown-toggle ps-2"></span>
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 						<li class="dropdown-header">
-							<h6>Kevin Anderson</h6>
+							<h6 name="userName"></h6>
 							<span>Web Designer</span>
 						</li>
 						<li>
@@ -337,8 +364,9 @@ function join() {
 						</li>
 
 						<li>
-							<a class="dropdown-item d-flex align-items-center" href="#">
-								<i class="bi bi-box-arrow-right"></i> <span>Sign Out</span>
+							<a class="dropdown-item d-flex align-items-center" onclick="logout();">
+								<i class="bi bi-box-arrow-right"></i>
+								<span>로그아웃</span>
 							</a>
 						</li>
 

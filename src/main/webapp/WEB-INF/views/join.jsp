@@ -11,15 +11,6 @@ $(document).ready(function () {
 function doKakaoLogin() {
 	const url = "https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${SERVER_URL}/oauth/kakao&response_type=code"; 
 	location.href = url;
-	/* CO.ajaxSubmit("/oauth/kakao", null, (result) => {
-  		// 성공 콜백 함수
-    	alert(result.result_msg);
-    	hideModal("dataModal");
-    	doSearch();
-  	}, (xhr, status, error) => {
-  		// 실패 콜백 함수
-  	    alert("서버와의 통신이 실패하였습니다. (" + error + ")");
-  	}); */
 }
 </script>
 
