@@ -125,6 +125,10 @@ function go(url) {
 	window.location.href = url;
 }
 
+function login() {
+	go("login.do");
+}
+
 function join() {
 	go("join.do");
 }
@@ -316,7 +320,7 @@ function logout() {
 
 				<!-- TODO: 로그인 전 영역-->
 				<div id="guest" class="btn-group" role="group" aria-label="Basic mixed styles example">
-					<button type="button" class="btn btn-light">로그인</button>
+					<button type="button" class="btn btn-light" onclick="login();">로그인</button>
 					<button type="button" class="btn btn-light" onclick="join();">회원가입</button>
 				</div>
 

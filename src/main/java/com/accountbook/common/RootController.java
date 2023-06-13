@@ -25,6 +25,17 @@ public class RootController {
 		return "main";
 	}
 	
+	// 로그인 화면
+	@RequestMapping("/login.do")
+	public String login(Model model) {
+		
+		model.addAttribute("CLIENT_ID", config.getOauthKakaoClientId());
+		model.addAttribute("SERVER_URL", config.getServerUrl());
+		
+		return "login";
+	}
+	
+	// 회원가입 화면
 	@RequestMapping("/join.do")
 	public String join(Model model) {
 		

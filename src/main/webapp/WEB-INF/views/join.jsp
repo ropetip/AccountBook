@@ -36,25 +36,24 @@ function doKakaoLogin() {
 
 									<form class="row g-3 needs-validation" novalidate>
 										<div class="col-12">
-											<label for="yourName" class="form-label">Your Name</label> <input type="text" name="name" class="form-control" id="yourName" required>
+											<label for="yourName" class="form-label">닉네임</label> <input type="text" name="name" class="form-control" id="yourName" required>
 											<div class="invalid-feedback">Please, enter your name!</div>
 										</div>
 
 										<div class="col-12">
-											<label for="yourEmail" class="form-label">Your Email</label> <input type="email" name="email" class="form-control" id="yourEmail" required>
+											<label for="yourEmail" class="form-label">이메일</label>
+											<input type="email" name="email" class="form-control" id="yourEmail" required>
 											<div class="invalid-feedback">Please enter a valid Email adddress!</div>
 										</div>
 
-										<div class="col-12">
-											<label for="yourUsername" class="form-label">Username</label>
-											<div class="input-group has-validation">
-												<span class="input-group-text" id="inputGroupPrepend">@</span> <input type="text" name="username" class="form-control" id="yourUsername" required>
-												<div class="invalid-feedback">Please choose a username.</div>
-											</div>
-										</div>
 
 										<div class="col-12">
-											<label for="yourPassword" class="form-label">Password</label> <input type="password" name="password" class="form-control" id="yourPassword" required>
+											<label for="yourPassword" class="form-label">패스워드</label> <input type="password" name="password" class="form-control" id="yourPassword" required>
+											<div class="invalid-feedback">Please enter your password!</div>
+										</div>
+										
+										<div class="col-12">
+											<label for="yourPassword" class="form-label">패스워드 확인</label> <input type="password" name="password" class="form-control" id="yourPassword" required>
 											<div class="invalid-feedback">Please enter your password!</div>
 										</div>
 
