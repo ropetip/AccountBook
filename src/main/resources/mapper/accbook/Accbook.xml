@@ -14,7 +14,7 @@
 				 , A.ASSET_NM
 				 , A.NOTE
 		 FROM T_ACCBOOK A
-		 WHERE A.USR_ID = #{usrId}
+		 WHERE A.USR_ID = #{g.oauth_email}
 	  	 ORDER BY A.ACC_YMD DESC
 	</select>
 	

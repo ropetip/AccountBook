@@ -30,4 +30,9 @@ public class WebConfig implements WebMvcConfigurer{
 	public GlobalConfig config() {
 		return new GlobalConfig();
 	}
+	
+	 @Bean
+	 public SessionParamConfig sessionParameterInjector() {
+		 return new SessionParamConfig();
+	 }
 }

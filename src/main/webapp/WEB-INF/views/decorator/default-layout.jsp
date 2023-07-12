@@ -399,8 +399,14 @@ function logout() {
 						<a onclick="go('/accbookList.do')"> <i class="bi bi-circle"></i><span>가계부 목록</span></a>
 					</li>
 				</ul>
+			</li>
+
+			<li class="nav-item">
+				<a onclick="go('/test.do')" class="nav-link "> <i class="bi bi-grid"></i> <span>TEST</span>
+				</a>
+			</li>
+			
 		</ul>
-		
 	</aside>
 	<!-- End Sidebar-->
 

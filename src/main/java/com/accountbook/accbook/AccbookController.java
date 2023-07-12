@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,8 @@ public class AccbookController {
 	
 	@RequestMapping("/getAccbookList.do")
 	@ResponseBody 
-	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
+	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param, HttpSession session) {
+		param.put("usrId", (String)session.getAttribute("oauth_email"));
 		List<Map<String, Object>> resultListMap = accbookService.getAccbookList(param);
 		return resultListMap;
 	}
