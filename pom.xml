@@ -11,6 +11,7 @@
 	<groupId>com.accountbook</groupId>
 	<artifactId>account_book</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>account_book</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -27,6 +28,15 @@
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.2.2</version>
+		</dependency>
+		
+		<!-- jar와는 다르게 추가적으로 dependency의 추가가 필요하다.
+  		이는 컴파일 단계에서만 tomcat 라이브러리를 이용(scope를 provided로 지정) 하고,
+  		배포 이후에는 내장 tomcat이 아닌 이미 존재하는 tomcat 서버를 이용하기 위함이다. -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		      <artifactId>spring-boot-starter-tomcat</artifactId>
+		      <scope>provided</scope>
 		</dependency>
 
 		<dependency>
