@@ -58,7 +58,9 @@
 <link href="resources/css/common.css" rel="stylesheet"/>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
  <!-- Vendor JS Files -->
 <script src="resources/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -103,7 +105,6 @@
 <sitemesh:write property='head' />
 
 <script>
-
 $(document).ready(function () {
 	const nickname = "<%=oauth_nickname%>";
 	
@@ -404,6 +405,17 @@ function logout() {
 			<li class="nav-item">
 				<a onclick="go('/test.do')" class="nav-link "> <i class="bi bi-grid"></i> <span>TEST</span>
 				</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#run-nav" data-bs-toggle="collapse" href="#">
+	          		<i class="bi bi-menu-button-wide"></i><span>러닝</span><i class="bi bi-chevron-down ms-auto"></i>
+		        </a>
+				<ul id="run-nav" class="nav-content collapse cursor-pointer" data-bs-parent="#sidebar-nav">
+					<li>
+						<a onclick="go('/runList.do')"> <i class="bi bi-circle"></i><span>기록 입력</span></a>
+					</li>
+				</ul>
 			</li>
 			
 		</ul>

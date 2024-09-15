@@ -14,7 +14,7 @@
 				 , A.ASSET_NM
 				 , A.NOTE
 		 FROM T_ACCBOOK A
-		 WHERE A.USR_ID = #{g.oauth_email}
+		 WHERE A.USR_ID = #{oauth_email}
 	  	 ORDER BY A.ACC_YMD DESC
 	</select>
 	
@@ -32,7 +32,7 @@
 		/* accbook.insertAccbook */
 		INSERT INTO T_ACCBOOK
 		(
-				ACC_ID
+			   ACC_ID
 			 , USR_ID
 			 , CLASS_NM
 			 , ITEM_NM
@@ -44,7 +44,7 @@
 		VALUES 
 		(
 			#{accId}
-			, 'ADMIN'
+			, #{oauth_email}
 			, #{classNm}
 			, #{itemNm}
 			, #{accYmd}

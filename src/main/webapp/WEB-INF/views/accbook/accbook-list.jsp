@@ -301,11 +301,11 @@ function doSave() {
 	});
 	
 	// 키 값 구하기
-	/* for(let [key, value] of data.entries()) {
+	for(let [key, value] of data.entries()) {
 	    console.log(key, value);
-	} */
+	}
 	
-	CO.confirm("저장하시겠습니까?", function() {
+ 	CO.confirm("저장하시겠습니까?", function() {
 	  	CO.ajaxSubmit("/saveAccbook.do", data, (result) => {
 	  		// 성공 콜백 함수
 	    	alert(result.result_msg);

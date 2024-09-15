@@ -1,9 +1,13 @@
 package com.accountbook.accbook;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -11,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -25,8 +30,9 @@ public class AccbookService {
 	
 	private final static String NAMESPACE = "accbook.";
 	
+	
 	public List<Map<String, Object>> getAccbookList(@RequestParam Map<String, Object> param) {
-		
+
 		List<Map<String, Object>> resultMap = sqlSession.selectList(NAMESPACE + "getAccbookList", param);
 
 		return resultMap;
@@ -35,11 +41,13 @@ public class AccbookService {
 	public List<Map<String, Object>> getCommonCode(@RequestParam Map<String, Object> param) {
 		
 		List<Map<String, Object>> resultMap = sqlSession.selectList(NAMESPACE + "getCommonCode", param);
-		System.out.println(resultMap.toString());
 		return resultMap;
 	}
 	
 	public Map<String, Object> insertAccbook(@RequestParam Map<String, Object> param) {
+		// 세션 속성을 param에 추가
+        // addSessionAttributesToParam(param, request);
+        
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		UUID uuid = UUID.randomUUID();
@@ -58,6 +66,9 @@ public class AccbookService {
 	}
 	
 	public Map<String, Object> updateAccbook(@RequestParam Map<String, Object> param) {
+		// 세션 속성을 param에 추가
+        // addSessionAttributesToParam(param, request);
+        
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		int cnt = sqlSession.update(NAMESPACE + "updateAccbook", param);

@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,21 +19,25 @@ public class WebConfig implements WebMvcConfigurer{
 				  .addResourceLocations("classpath:/templates/")
 				  .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
 	}
+
+	@Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new Interceptor()).addPathPatterns("/**");
+    }
 	
 	@Bean
-	public FilterRegistrationBean<SitemeshConfig> sitemeshBean() {
+	FilterRegistrationBean<SitemeshConfig> sitemeshBean() {
 		FilterRegistrationBean<SitemeshConfig> filter = new FilterRegistrationBean<SitemeshConfig>();
 		filter.setFilter(new SitemeshConfig());
 		return filter;
 	}
 	
 	@Bean
-	public GlobalConfig config() {
+	GlobalConfig config() {
 		return new GlobalConfig();
 	}
-	
-	 @Bean
-	 public SessionParamConfig sessionParameterInjector() {
-		 return new SessionParamConfig();
-	 }
+	@Bean
+	SessionParamConfig sessionParameterInjector() {
+	    return new SessionParamConfig();
+	}
 }

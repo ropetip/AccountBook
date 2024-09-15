@@ -4,6 +4,7 @@
 	String oauth_nickname = (String)session.getAttribute("oauth_nickname");
 %>
 <!DOCTYPE html>
+<html>
 <head>
 <script>
 $(document).ready(function () {

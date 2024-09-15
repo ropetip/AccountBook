@@ -19,17 +19,18 @@ public class MybatisConfig {
     ApplicationContext applicationContext;
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext applicationContext) throws Exception {
+    SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext applicationContext) throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/**/*.xml"));
         SqlSessionFactory factory = factoryBean.getObject();
         factory.getConfiguration().setMapUnderscoreToCamelCase(true);
+        
         return factoryBean.getObject();
     }
     
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(@Autowired SqlSessionFactory sqlSessionFactory) {
+    SqlSessionTemplate sqlSessionTemplate(@Autowired SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

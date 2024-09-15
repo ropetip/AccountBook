@@ -17,11 +17,6 @@ public class RootController {
 	@Autowired
 	private GlobalConfig config;
 	
-	@RequestMapping("/test.do")
-	public String accBookList(Model model) {
-		return "test";
-	}
-	
 	@RequestMapping("/")
 	public String index(Model model) {
 		model.addAttribute("CLIENT_ID", config.getOauthKakaoClientId());

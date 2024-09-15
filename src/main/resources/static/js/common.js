@@ -64,8 +64,8 @@ let CO = {
 			, type: "post"
 			, data: data
 			, dataType: "json"
-			, processData: false
-			, contentType: false
+			, processData: false // FormData를 사용할 때는 false로 설정
+		    , contentType: false // FormData를 사용할 때는 false로 설정
 			, success: onSucess
 			, error: onError
 		});

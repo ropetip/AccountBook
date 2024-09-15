@@ -29,11 +29,15 @@ public class OAuthUserInfo {
         private boolean isEmailValid;
         @JsonProperty("is_email_verified")
         private boolean isEmailVerified;
+        @JsonProperty("email")
         private String email;
+        @JsonProperty("id_token")
+        public String idToken;
     }
 
     @Data
     public static class Profile {
         private String nickname;
+        private String is_default_nickname;
     }
 }

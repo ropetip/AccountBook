@@ -99,8 +99,6 @@ public class OAuthController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(oauthUserInfo.getKakao_account().getEmail());
-		
 		session.setAttribute("oauth_email", oauthUserInfo.getKakao_account().getEmail());
 		session.setAttribute("oauth_nickname", oauthUserInfo.getProperties().getNickname());
 		session.setAttribute("accessToken", oauthToken.getAccess_token());
