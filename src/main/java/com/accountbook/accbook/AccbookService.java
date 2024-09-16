@@ -45,9 +45,6 @@ public class AccbookService {
 	}
 	
 	public Map<String, Object> insertAccbook(@RequestParam Map<String, Object> param) {
-		// 세션 속성을 param에 추가
-        // addSessionAttributesToParam(param, request);
-        
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		UUID uuid = UUID.randomUUID();
@@ -66,9 +63,6 @@ public class AccbookService {
 	}
 	
 	public Map<String, Object> updateAccbook(@RequestParam Map<String, Object> param) {
-		// 세션 속성을 param에 추가
-        // addSessionAttributesToParam(param, request);
-        
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		int cnt = sqlSession.update(NAMESPACE + "updateAccbook", param);

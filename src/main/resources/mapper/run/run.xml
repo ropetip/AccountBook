@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="run">
+
+	<select id="getRunList" parameterType="map" resultType="map">
+		/* run.getRunList */
+		SELECT A.RUN_ID
+			 , A.USR_ID
+			 , A.RUN_YMD
+			 , A.START_DT
+			 , A.END_DT
+			 , A.DISTANCE
+			 , A.DURATION
+			 , A.PACE
+			 , A.CALORIES_BURNED
+			 , A.ROUTE
+			 , A.NOTE
+			 , A.WEATHER
+			 , A.GEAR
+		 FROM T_RUN A
+		 WHERE A.USR_ID = #{usrId}
+	  	 ORDER BY A.RUN_YMD DESC
+	</select>
+	
+	<select id="getCommonCode" parameterType="map" resultType="map">
+		/* run.getCommonCode */
+		SELECT A.CODE_TYPE_ID AS CODE
+	     	 , B.CODE_NM AS CODE_NM
+		FROM T_CODE_TYPE A
+	       , T_CODE B
+		WHERE A.CODE_TYPE_ID = B.CODE_TYPE_ID
+		AND A.CODE_TYPE_ID = #{codeTypeId}
+	</select>
+	
+	<insert id="insertRun" parameterType="map">
+		/* run.insertRun */
+		INSERT INTO T_RUN
+		(
+			  RUN_ID
+			, USR_ID
+			, RUN_YMD
+			, START_DT
+			, END_DT
+			, DISTANCE
+			, DURATION
+			, PACE
+			, CALORIES_BURNED
+			, ROUTE
+			, NOTE
+			, WEATHER
+			, GEAR
+			, REG_ID
+			, REG_DT
+		) 
+		VALUES 
+		(
+			  #{runId}
+			, #{usrId}
+			, #{runYmd}
+			, #{startDt}
+			, #{endDt}
+			, #{distance}
+			, #{duration}
+			, #{pace}
+			, #{caloriesBurned}
+			, #{route}
+			, #{note}
+			, #{weather}
+			, #{gear}
+			, #{usrId}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="updateRun" parameterType="map">
+		/* run.updateRun */
+	    UPDATE T_RUN
+	    SET   USR_ID = #{usrId}
+	        , RUN_YMD = #{runYmd}
+	        , START_DT = #{startDt}
+	        , END_DT = #{endDt}
+	        , DISTANCE = #{distance}
+	        , DURATION = #{duration}
+	        , PACE = #{pace}
+	        , CALORIES_BURNED = #{caloriesBurned}
+	        , ROUTE = #{route}
+	        , NOTE = #{note}
+	        , WEATHER = #{weather}
+	        , GEAR = #{gear}
+	        , MOD_ID = #{usrId}
+	        , MOD_DT = NOW()
+         WHERE RUN_ID = #{runId}
+	</update>
+
+	
+	<delete id="deleteRun" parameterType="map">
+		/* run.updateRun */
+		DELETE 
+		FROM T_RUN
+		WHERE RUN_ID = #{runId} 
+	</delete>
+</mapper>

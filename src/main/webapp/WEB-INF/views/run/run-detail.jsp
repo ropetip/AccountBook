@@ -19,8 +19,70 @@ window.addEventListener("load", (e) => {
 	load();
 });
 
+
 function load() {
-	
+	// param 문자열을 파싱하여 객체로 변환
+    const paramString = "${param}";
+    const params = new URLSearchParams(paramString.replace("{data=", ""));
+
+ 	// params 객체를 순회하면서 폼 필드에 값 매핑
+    params.forEach((value, key) => {
+        // 카멜케이스로 변환된 key로 폼 필드 검색
+        const camelCaseKey = CO.toCamelCase(key);
+
+        // 커스텀 속성으로 검색
+        if (camelCaseKey) {
+	        const elementByCustomAttr = document.querySelector("[name="+camelCaseKey+"]");
+	        if (elementByCustomAttr) {
+                // Determine input type
+               switch (elementByCustomAttr.type) {
+                    case 'date':
+                        // Convert to yyyy-MM-dd format
+                        const date = new Date(value);
+                        if (!isNaN(date.getTime())) { // Check if date is valid
+                            elementByCustomAttr.value = date.toISOString().split('T')[0];
+                        }
+                        break;
+                    case 'datetime-local':
+                        // Convert to yyyy-MM-ddThh:mm format
+                        const datetime = new Date(value);
+                        if (!isNaN(datetime.getTime())) { // Check if datetime is valid
+                            elementByCustomAttr.value = datetime.toISOString().slice(0, 16);
+                        }
+                        break;
+                    case 'number':
+                        // Ensure value is a number
+                        elementByCustomAttr.value = isNaN(value) ? '' : Number(value);
+                        break;
+                    case 'time':
+                        // Convert to hh:mm format
+                        const time = new Date(value);
+                        if (!isNaN(time.getTime())) { // Check if time is valid
+                            elementByCustomAttr.value = time.toTimeString().slice(0, 5);
+                        }
+                        break;
+                    default:
+                        // For other input types, just decode and set the value
+                        elementByCustomAttr.value = decodeURIComponent(value);
+                        break;
+                }
+                return;
+            }
+        }
+    });
+}
+//저장
+function doSave() {
+	CO.doSave("/saveRun.do", "fm");
+}
+
+//삭제
+function doDelete() {
+	CO.doDelete("/deleteRun.do", "fm");
+}
+
+function goList() {
+	go("runList.do");
 }
 </script>
 
@@ -28,9 +90,9 @@ function load() {
 <body>
     <div class="container">
         <div class="d-flex justify-content-end mb-3">
-            <input type="button" class="btn btn-success me-2" onclick="go('runSave.do')" value="저장">
-            <input type="button" class="btn btn-danger me-2" onclick="go('runDelete.do')" value="삭제">
-            <input type="button" class="btn btn-primary" onclick="go('runList.do')" value="목록">
+            <input type="button" class="btn btn-success me-2" onclick="doSave();" value="저장">
+            <input type="button" class="btn btn-danger me-2" onclick="doDelete();" value="삭제">
+            <input type="button" class="btn btn-primary" onclick="goList();" value="목록">
         </div>
 
 		<div class="card">
@@ -45,10 +107,10 @@ function load() {
 		                   <input type="text" class="form-control" id="runId" name="runId">
 		               </div>
 		           </div>
-		           <div class="row mb-3">
+		           <div class="d-none row mb-3">
 		               <label for="usrId" class="col-sm-2 col-form-label">사용자 ID</label>
 		               <div class="col-sm-10">
-		                   <input type="text" class="form-control" id="usrId" name="usrId" required>
+		                   <input type="text" class="form-control" id="usrId" name="usrId">
 		               </div>
 		           </div>
 		           <div class="row mb-3">
