@@ -192,7 +192,7 @@ function showDetails(data) {
 	const dataModal = document.querySelector("#dataModal");
 	
 	// 데이터 있는 경우
-	if(CO.isObject(data)) {
+	if(CO.isNotEmpty(data)) {
 		const element = dataModal.querySelectorAll("input, select");
 		element.forEach( (elem) => {
 			const col_id = elem.getAttribute("col-id");

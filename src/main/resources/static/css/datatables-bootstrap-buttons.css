@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+/* 기본 DataTables 버튼 스타일 제거 */
+button.dt-button, div.dt-button, a.dt-button, input.dt-button {
+    background: none; /* 기본 배경 제거 */
+    border: none; /* 기본 테두리 제거 */
+    color: inherit; /* 기본 텍스트 색상 제거 */
+    font: inherit; /* 기본 폰트 설정 제거 */
+    border-radius: .25rem; /* 기본 테두리 반경 설정 (Bootstrap의 기본 버튼과 일치) */
+    display: inline-block; /* 인라인 블록으로 설정하여 버튼처럼 보이게 함 */
+    padding: .375rem .75rem; /* 기본 버튼 패딩 */
+    margin: 0; /* 기본 마진 제거 */
+    font-size: 1rem; /* 기본 폰트 크기 */
+    line-height: 1.5; /* 기본 줄 높이 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    text-decoration: none; /* 텍스트 장식 제거 */
+    cursor: pointer; /* 커서 포인터로 설정 */
+}
+
+/* 기본 버튼 스타일 */
+button.dt-button.btn-primary, div.dt-button.btn-primary, a.dt-button.btn-primary, input.dt-button.btn-primary {
+    background-color: #0d6efd; /* .btn-primary 배경색 */
+    border-color: #0d6efd; /* .btn-primary 테두리색 */
+    color: #fff; /* .btn-primary 텍스트 색상 */
+}
+
+button.dt-button.btn-primary:hover, div.dt-button.btn-primary:hover, a.dt-button.btn-primary:hover, input.dt-button.btn-primary:hover {
+    background-color: #0b5ed7; /* .btn-primary hover 배경색 */
+    border-color: #0a58ca; /* .btn-primary hover 테두리색 */
+}
+
+button.dt-button.btn-secondary, div.dt-button.btn-secondary, a.dt-button.btn-secondary, input.dt-button.btn-secondary {
+    background-color: #6c757d; /* .btn-secondary 배경색 */
+    border-color: #6c757d; /* .btn-secondary 테두리색 */
+    color: #fff; /* .btn-secondary 텍스트 색상 */
+}
+
+button.dt-button.btn-secondary:hover, div.dt-button.btn-secondary:hover, a.dt-button.btn-secondary:hover, input.dt-button.btn-secondary:hover {
+    background-color: #5c636a; /* .btn-secondary hover 배경색 */
+    border-color: #565e64; /* .btn-secondary hover 테두리색 */
+}
+
+button.dt-button.btn-success, div.dt-button.btn-success, a.dt-button.btn-success, input.dt-button.btn-success {
+    background-color: #198754; /* .btn-success 배경색 */
+    border-color: #198754; /* .btn-success 테두리색 */
+    color: #fff; /* .btn-success 텍스트 색상 */
+}
+
+button.dt-button.btn-success:hover, div.dt-button.btn-success:hover, a.dt-button.btn-success:hover, input.dt-button.btn-success:hover {
+    background-color: #157347; /* .btn-success hover 배경색 */
+    border-color: #146c43; /* .btn-success hover 테두리색 */
+}
+
+button.dt-button.btn-danger, div.dt-button.btn-danger, a.dt-button.btn-danger, input.dt-button.btn-danger {
+    background-color: #dc3545; /* .btn-danger 배경색 */
+    border-color: #dc3545; /* .btn-danger 테두리색 */
+    color: #fff; /* .btn-danger 텍스트 색상 */
+}
+
+button.dt-button.btn-danger:hover, div.dt-button.btn-danger:hover, a.dt-button.btn-danger:hover, input.dt-button.btn-danger:hover {
+    background-color: #c82333; /* .btn-danger hover 배경색 */
+    border-color: #bd2130; /* .btn-danger hover 테두리색 */
+}
+
+button.dt-button.btn-warning, div.dt-button.btn-warning, a.dt-button.btn-warning, input.dt-button.btn-warning {
+    background-color: #ffc107; /* .btn-warning 배경색 */
+    border-color: #ffc107; /* .btn-warning 테두리색 */
+    color: #212529; /* .btn-warning 텍스트 색상 */
+}
+
+button.dt-button.btn-warning:hover, div.dt-button.btn-warning:hover, a.dt-button.btn-warning:hover, input.dt-button.btn-warning:hover {
+    background-color: #e0a800; /* .btn-warning hover 배경색 */
+    border-color: #d39e00; /* .btn-warning hover 테두리색 */
+}
+
+button.dt-button.btn-info, div.dt-button.btn-info, a.dt-button.btn-info, input.dt-button.btn-info {
+    background-color: #0dcaf0; /* .btn-info 배경색 */
+    border-color: #0dcaf0; /* .btn-info 테두리색 */
+    color: #212529; /* .btn-info 텍스트 색상 */
+}
+
+button.dt-button.btn-info:hover, div.dt-button.btn-info:hover, a.dt-button.btn-info:hover, input.dt-button.btn-info:hover {
+    background-color: #0abaf0; /* .btn-info hover 배경색 */
+    border-color: #0a95c1; /* .btn-info hover 테두리색 */
+}
+
+button.dt-button.btn-light, div.dt-button.btn-light, a.dt-button.btn-light, input.dt-button.btn-light {
+    background-color: #f8f9fa; /* .btn-light 배경색 */
+    border-color: #f8f9fa; /* .btn-light 테두리색 */
+    color: #212529; /* .btn-light 텍스트 색상 */
+}
+
+button.dt-button.btn-light:hover, div.dt-button.btn-light:hover, a.dt-button.btn-light:hover, input.dt-button.btn-light:hover {
+    background-color: #e2e6ea; /* .btn-light hover 배경색 */
+    border-color: #dae0e5; /* .btn-light hover 테두리색 */
+}
+
+button.dt-button.btn-dark, div.dt-button.btn-dark, a.dt-button.btn-dark, input.dt-button.btn-dark {
+    background-color: #212529; /* .btn-dark 배경색 */
+    border-color: #212529; /* .btn-dark 테두리색 */
+    color: #fff; /* .btn-dark 텍스트 색상 */
+}
+
+button.dt-button.btn-dark:hover, div.dt-button.btn-dark:hover, a.dt-button.btn-dark:hover, input.dt-button.btn-dark:hover {
+    background-color: #1d1d1d; /* .btn-dark hover 배경색 */
+    border-color: #161616; /* .btn-dark hover 테두리색 */
+}
+
+button.dt-button.btn-link, div.dt-button.btn-link, a.dt-button.btn-link, input.dt-button.btn-link {
+    background-color: transparent; /* .btn-link 배경색 없음 */
+    border: none; /* .btn-link 테두리 없음 */
+    color: #0d6efd; /* .btn-link 텍스트 색상 */
+    font-size: 1rem; /* .btn-link 폰트 크기 */
+    padding: 0; /* .btn-link 패딩 없음 */
+}
+
+button.dt-button.btn-link:hover, div.dt-button.btn-link:hover, a.dt-button.btn-link:hover, input.dt-button.btn-link:hover {
+    color: #0a58ca; /* .btn-link hover 텍스트 색상 */
+    text-decoration: underline; /* .btn-link hover 밑줄 */
+}
+
+/* 라운드 버튼 스타일 */
+button.dt-button.rounded-pill, div.dt-button.rounded-pill, a.dt-button.rounded-pill, input.dt-button.rounded-pill {
+    border-radius: 50rem; /* 라운드 버튼 스타일 */
+}
+
+/* 아이콘 버튼 스타일 */
+button.dt-button i {
+    margin-right: .5rem; /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 버튼 그룹 스타일 */
+.btn-group .btn {
+    margin: 0; /* 버튼 그룹 내 버튼 간격 제거 */
+}
+
+/* 아웃라인 버튼 스타일 */
+button.dt-button.btn-outline-primary, div.dt-button.btn-outline-primary, a.dt-button.btn-outline-primary, input.dt-button.btn-outline-primary {
+    background-color: transparent; /* 아웃라인 버튼 배경색 없음 */
+    border-color: #0d6efd; /* 아웃라인 버튼 테두리색 */
+    color: #0d6efd; /* 아웃라인 버튼 텍스트 색상 */
+}
+
+button.dt-button.btn-outline-primary:hover, div.dt-button.btn-outline-primary:hover, a.dt-button.btn-outline-primary:hover, input.dt-button.btn-outline-primary:hover {
+    background-color: #0d6efd; /* 아웃라인 버튼 hover 배경색 */
+    color: #fff; /* 아웃라인 버튼 hover 텍스트 색상 */
+    border-color: #0d6efd; /* 아웃라인 버튼 hover 테두리색 */
+}
+
+/* 버튼 크기 */
+button.dt-button.btn-sm {
+    font-size: .875rem; /* 작은 버튼 폰트 크기 */
+    padding: .25rem .5rem; /* 작은 버튼 패딩 */
+}
+
+button.dt-button.btn-lg {
+    font-size: 1.25rem; /* 큰 버튼 폰트 크기 */
+    padding: .5rem 1rem; /* 큰 버튼 패딩 */
+}
+
+/* 블록 버튼 스타일 */
+button.dt-button.d-grid {
+    width: 100%; /* 버튼을 블록처럼 보이게 함 */
+}
+
+/* 비활성화 버튼 스타일 */
+button.dt-button:disabled {
+    opacity: .65; /* 비활성화된 버튼 불투명도 */
+    cursor: not-allowed; /* 비활성화된 버튼 커서 */
+}

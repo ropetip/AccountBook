@@ -45,9 +45,27 @@ function hideModal(modal_id) {
 }
 
 let CO = {
-	// 객체 유무 체크
-	isObject: function(obj) {
-		return typeof obj === "object" && obj !== null;
+	// 객체가 비어있는지 확인하는 함수
+	isEmpty: function(obj) {
+	    // null, undefined 체크
+	    if (obj === null || obj === undefined) return true;
+	    
+	    // 객체가 배열, 문자열일 경우 length 체크
+	    if (typeof obj === 'string' || Array.isArray(obj)) {
+	        return obj.length === 0;
+	    }
+
+	    // 객체가 일반 객체일 경우 key 체크
+	    if (typeof obj === 'object') {
+	        return Object.keys(obj).length === 0;
+	    }
+
+	    return false; // 나머지 경우는 비어있지 않다고 가정
+	},
+
+	// 객체가 비어있지 않은지 확인하는 함수
+	isNotEmpty: function(obj) {
+	    return !isEmpty(obj);
 	},
 	
 	// confirm창

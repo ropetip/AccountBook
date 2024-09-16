@@ -53,10 +53,12 @@
 <link href="https://cdn.datatables.net/searchpanes/2.1.2/css/searchPanes.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/select/1.6.2/css/select.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/staterestore/1.2.2/css/stateRestore.dataTables.min.css" rel="stylesheet"/>
+
+<!-- DataTables 버튼에 Bootstrap 스타일을 적용하기 위한 CSS 파일 -->
+<link href="resources/css/datatables-bootstrap-buttons.css" rel="stylesheet"/>
 <!-- Template Main CSS File -->
 <link href="resources/css/style.css" rel="stylesheet"/>
 <link href="resources/css/common.css" rel="stylesheet"/>
-
 
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

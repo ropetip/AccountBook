@@ -35,4 +35,10 @@ public class RunController {
 		List<Map<String, Object>> resultListMap = runService.getAccbookList(param);
 		return resultListMap;
 	}
+	
+	@GetMapping("/runDetail.do")
+	public String runDetailList(@RequestParam Map<String, Object> param, Model model) {
+		model.addAttribute("param", param);
+		return "/run/run-detail";
+	}
 }
