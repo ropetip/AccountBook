@@ -26,9 +26,13 @@ public class RunService {
 	private final static String NAMESPACE = "run.";
 	
 	public List<Map<String, Object>> getRunList(@RequestParam Map<String, Object> param) {
-		
 		List<Map<String, Object>> resultMap = sqlSession.selectList(NAMESPACE + "getRunList", param);
-
+		return resultMap;
+	}
+	
+	public Map<String, Object> getRunDetail(@RequestParam Map<String, Object> param) {
+		Map<String, Object> resultMap = sqlSession.selectOne(NAMESPACE + "getRunDetail", param);
+		System.out.println("resultMap=>"+resultMap.toString());
 		return resultMap;
 	}
 	

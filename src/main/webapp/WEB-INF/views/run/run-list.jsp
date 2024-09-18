@@ -29,7 +29,33 @@ function load() {
 	    columns: [
 	        { "data": "RUN_ID" },
 	        { "data": "USR_ID" },
-	        { "data": "RUN_YMD" },
+	        { "data": "RUN_YMD"
+        	 ,"render": function (data, type, row) {
+		            if (data) {
+		                // 날짜 문자열의 형식을 YYYYMMDD에서 YYYY-MM-DD로 변환
+		                return data.substring(0, 4) + '-' + data.substring(4, 6) + '-' + data.substring(6, 8);
+		            }
+	                return data;
+            	}
+        	},
+        	{ "data": "START_DT",
+        		"render": function (data, type, row) {
+		            if (data) {
+		                // 날짜 및 시간 문자열의 형식을 yyyy-MM-ddThh:mm로 변환
+		                return data.substring(0, 10) + 'T' + data.substring(11, 16);
+		            }
+	                return data;
+            	}
+        	},
+	        { "data": "END_DT",
+        		"render": function (data, type, row) {
+		            if (data) {
+		                // 날짜 및 시간 문자열의 형식을 yyyy-MM-ddThh:mm로 변환
+		                return data.substring(0, 10) + 'T' + data.substring(11, 16);
+		            }
+	                return data;
+            	}
+        	},
 	        { "data": "DISTANCE" },
 	        { "data": "DURATION" },
 	        { "data": "PACE" },
@@ -45,7 +71,9 @@ function load() {
       		{ targets: [4], width: "12%", className: "text-right"},
       		{ targets: [5], width: "12%", className: "text-center"},
       		{ targets: [6], width: "12%", className: "text-center"},
-      		{ targets: [7], width: "*", className: "text-left"},
+      		{ targets: [6], width: "12%", className: "text-center"},
+      		{ targets: [7], width: "12%", className: "text-center"},
+      		{ targets: [8], width: "*", className: "text-left"},
       		{
      			targets: "_all", className: "cursor-pointer", defaultContent: "",
       			createdCell: function (td, cellData, rowData, row, col) {
@@ -167,7 +195,15 @@ function doSearch() {
 }
 
 function showDetails(data) {
- 	CO.submitForm("/runDetail.do", data);
+	let obj = {};
+	
+	if(CO.isNotEmpty(data)) {
+		obj.RUN_ID = data.RUN_ID;	
+	} else {
+		obj.isNew = true;
+	}
+	
+ 	CO.submitForm("/runDetail.do", obj);
 }
 
 //조회 완료 후
@@ -180,6 +216,7 @@ function onCompleteList() {
 </script>
 </head>
 <body>
+<div id="run-list-content">
 	<form id="fm">
 		<table id="dataTable" class="table table-striped table-bordered" style="width:100%">
 			<thead>
@@ -187,6 +224,8 @@ function onCompleteList() {
 					<th>ID</th>
 					<th>사용자</th>
 					<th>날짜</th>
+					<th>시작 시간</th>
+					<th>종료 시간</th>
 					<th>거리(km)</th>
 					<th>소요 시간</th>
 					<th>페이스(min/km)</th>
@@ -198,6 +237,6 @@ function onCompleteList() {
 	       	</tbody>
 		</table>
 	</form>
-	
+</div>
 </body>
 </html>

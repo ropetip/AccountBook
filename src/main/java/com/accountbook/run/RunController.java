@@ -40,25 +40,31 @@ public class RunController {
     }
 	
 	@GetMapping("/runList.do")
-	public String accBookList(Model model) {
+	public String runList(Model model) {
 		return "/run/run-list";
 	}
 	
 	@GetMapping("/getRunList.do")
 	@ResponseBody 
-	public List<Map<String, Object>> getRunList(@RequestParam Map<String, Object> param, HttpSession session) {
-		param.put("usrId", (String)session.getAttribute("oauth_email"));
+	public List<Map<String, Object>> getRunList(@RequestParam Map<String, Object> param, HttpSession session, HttpServletRequest request) {
+		addSessionAttributesToParam(param, request);
 		List<Map<String, Object>> resultListMap = runService.getRunList(param);
 		return resultListMap;
 	}
 	
 	@PostMapping("/runDetail.do")
 	public String runDetailList(@RequestParam Map<String, Object> param, Model model) {
-		System.out.println("param=>"+param.toString());
-		model.addAttribute("param", param);
 		return "/run/run-detail";
 	}
 	
+	@PostMapping("/getRunDetail.do")
+	@ResponseBody 
+	public Map<String, Object> getRunDetail(@RequestParam Map<String, Object> param, HttpSession session, HttpServletRequest request) {
+		// 세션 속성을 param에 추가
+        addSessionAttributesToParam(param, request);
+		Map<String, Object> resultMap = runService.getRunDetail(param);
+		return resultMap;
+	}
 
 	@PostMapping("/saveRun.do")
 	@ResponseBody

@@ -3,7 +3,7 @@
 
 <mapper namespace="run">
 
-	<select id="getRunList" parameterType="map" resultType="map">
+	<select id="getRunList" resultType="map">
 		/* run.getRunList */
 		SELECT A.RUN_ID
 			 , A.USR_ID
@@ -20,6 +20,26 @@
 			 , A.GEAR
 		 FROM T_RUN A
 		 WHERE A.USR_ID = #{usrId}
+	  	 ORDER BY A.RUN_YMD DESC
+	</select>
+	
+	<select id="getRunDetail" resultType="map">
+		/* run.getRunDetail */
+		SELECT A.USR_ID
+			 , A.RUN_YMD
+			 , A.START_DT
+			 , A.END_DT
+			 , A.DISTANCE
+			 , A.DURATION
+			 , A.PACE
+			 , A.CALORIES_BURNED
+			 , A.ROUTE
+			 , A.NOTE
+			 , A.WEATHER
+			 , A.GEAR
+		 FROM T_RUN A
+		 WHERE A.USR_ID = #{usrId}
+		 AND A.RUN_ID = #{runId}
 	  	 ORDER BY A.RUN_YMD DESC
 	</select>
 	

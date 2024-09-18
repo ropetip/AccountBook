@@ -65,7 +65,7 @@ let CO = {
 
 	// 객체가 비어있지 않은지 확인하는 함수
 	isNotEmpty: function(obj) {
-	    return !isEmpty(obj);
+	    return !CO.isEmpty(obj);
 	},
 	
 	//카멜케이스로 변환할 함수
@@ -159,7 +159,7 @@ let CO = {
 				});
 			}
 		} else {
-			alert(data.responseJSON.status + " " + data.responseJSON.error);
+			alert(status + " " + error);
 		}
 	},
 	
@@ -172,15 +172,15 @@ let CO = {
 			, dataType: "json"
 			, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 			, success: function(data, status, xhr) {
-				CO.callback(data, status, xhr);
+				CO.callback_table(data, status, xhr);
 			},
 			error: function(xhr, status, error) {
-				CO.callback(xhr, status, error);
+				CO.callback_table(xhr, status, error);
 			}
 		});
 	},
 
-	callback: function(data, status, error) {
+	callback_table: function(data, status, error) {
 		const dataTable = document.querySelector("#dataTable");
 		const row_id = dataTable.querySelector("[row-id=dataRow]");
 
@@ -212,7 +212,7 @@ let CO = {
 
 			}
 		} else {
-			alert(data.responseJSON.status + " " + data.responseJSON.error);
+			alert(status + " " + error);
 		}
 
 		if (typeof onCompleteList === "function") {
@@ -220,6 +220,7 @@ let CO = {
 		}
 	},
 	
+	// 폼 전송 (페이지 이동)
 	submitForm: function(url, data, formId) {
 		if(CO.isEmpty(formId)) formId = "fm";
 		
@@ -241,25 +242,85 @@ let CO = {
 		        }
 		    }
 		}
-
-		// FormData를 URLSearchParams로 변환하여 쿼리 문자열로 변환
-		const queryString = new URLSearchParams(formData).toString();
-
+		
+		// FormData의 각 항목을 name, value로 input 필드로 변환하여 추가
+		for (let [key, value] of formData.entries()) {
+		    const inputField = document.createElement('input');
+		    inputField.type = 'hidden';
+		    inputField.name = key;   // name 설정
+		    inputField.value = value; // value 설정
+		    form.appendChild(inputField); // form에 추가
+		}
+		
 		// 폼 action 설정 및 method를 POST로 설정
 		form.action = url;
 		form.method = 'POST';
-
-		// 쿼리 문자열을 hidden 필드로 추가
-		const hiddenField = document.createElement('input');
-		hiddenField.type = 'hidden';
-		hiddenField.name = 'data';
-		hiddenField.value = queryString;
-		form.appendChild(hiddenField);
-
+		
 		// 폼 제출
 		form.submit();
 	},
 
+	// 폼 형식 데이터 세팅
+	ajaxSetForm: function(url, data) {
+		$.ajax({
+			url: url
+			, type: "post"
+			, data: data
+			, dataType: "json"
+			, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+			, success: function(data, status, xhr) {
+				CO.callback_form(data, status, xhr);
+			},
+			error: function(xhr, status, error) {
+				CO.callback_form(xhr, status, error);
+			}
+		});
+	},
+	
+	// 폼 형식 콜백
+	callback_form: function(data, status, error) {
+		if (status == "success") {
+			// 폼 필드에 동적으로 값을 설정합니다.
+		    for (const [key, value] of Object.entries(data)) {
+		        const elementByName = document.querySelector("[name='"+CO.toCamelCase(key)+"']");
+		
+		        if (elementByName) {
+		            // 입력 타입에 따라 값을 설정합니다.
+		            switch (elementByName.type) {
+		                case 'date':
+							const formattedDate = `${value.substring(0, 4)}-${value.substring(4, 6)}-${value.substring(6, 8)}`;
+                           	elementByName.value = formattedDate;
+		                    break;
+		                case 'datetime-local':
+		                    // 날짜 및 시간 형식으로 변환
+		                    const datetime = new Date(value);
+		                    if (!isNaN(datetime.getTime())) { // 유효한 날짜 및 시간인지 확인
+		                        elementByName.value = datetime.toISOString().slice(0, 16);
+		                    }
+		                    break;
+		                case 'number':
+		                    // 숫자 형식으로 변환
+		                    elementByName.value = isNaN(value) ? '' : Number(value);
+		                    break;
+		                case 'time':
+		                    // 시간 형식으로 변환
+		                    const time = new Date(`1970-01-01T${value}`);
+		                    if (!isNaN(time.getTime())) { // 유효한 시간인지 확인
+		                        elementByName.value = time.toTimeString().slice(0, 5);
+		                    }
+		                    break;
+		                default:
+		                    // 기타 입력 타입의 경우, 값 디코딩 후 설정
+		                    elementByName.value = decodeURIComponent(value);
+		                    break;
+		            }
+		        }
+			}
+		} else {
+			alert(status + " " + error);
+		}
+	},
+	
 	//삭제
 	doDelete: function(url, formId) {
 		if(CO.isEmpty(formId)) formId = "fm";
@@ -363,5 +424,31 @@ let CO = {
 	
 	  	return formData;
 	},
+	
+	// key=value를 key:value JSON 형태로 변환
+	convertToJSON: function(str) {
+		// 문자열의 앞뒤 중괄호 제거
+	    str = str.trim().slice(1, -1).trim();
+
+	    // '='를 ':'로 교체
+	    str = str.replace(/=/g, ':');
+
+		// JSON 문자열로 변환하기 위해 키를 카멜케이스로 변환
+	   	str = str.replace(/(\w+):/g, (match, key) => {
+       		return '"' + CO.toCamelCase(key) + '":';
+	   	});
+		
+	    // 키와 값을 쌍따옴표로 감싸기
+	    str = str.replace(/(\w+):/g, '"$1":');
+
+	    // 값이 문자열인 경우, 쌍따옴표 추가
+	    // 여기서는 값에 포함된 특수 문자를 적절히 처리하도록 수정합니다.
+	    str = str.replace(/:(\w[\w-]*)/g, ':"$1"');
+
+        // JSON 문자열을 검증 후 파싱
+        const jsonString = '{' + str + '}';
+        console.log('JSON String:', jsonString); // 디버깅용 출력
+        return JSON.parse(jsonString);
+	}
 
 };

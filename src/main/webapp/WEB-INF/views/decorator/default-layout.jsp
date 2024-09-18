@@ -122,7 +122,12 @@ $(document).ready(function () {
 		document.querySelector("#guest").classList.remove("hide");
 		document.querySelector("#userProfile").classList.add("hide");
 	}
+	
+	setMenu();
 });
+
+function setMenu() {
+}
 
 function go(url) {
 	window.location.href = url;
@@ -426,7 +431,7 @@ function logout() {
 
 	<main id="main" class="main">
 		<div>
-			<sitemesh:write property='body' />
+			<sitemesh:write property='body' />	
 		</div>
 	</main>
 	<!-- ======= Footer ======= -->
