@@ -32,7 +32,6 @@ public class RunService {
 	
 	public Map<String, Object> getRunDetail(@RequestParam Map<String, Object> param) {
 		Map<String, Object> resultMap = sqlSession.selectOne(NAMESPACE + "getRunDetail", param);
-		System.out.println("resultMap=>"+resultMap.toString());
 		return resultMap;
 	}
 	

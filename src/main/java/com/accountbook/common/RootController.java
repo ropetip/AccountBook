@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.accountbook.config.GlobalConfig;
 
@@ -27,10 +28,14 @@ public class RootController {
 	
 	// 로그인 화면
 	@RequestMapping("/login.do")
-	public String login(Model model) {
+	public String login(Model model, @RequestParam(required = false) String msgCode) {
 		
 		model.addAttribute("CLIENT_ID", config.getOauthKakaoClientId());
 		model.addAttribute("SERVER_URL", config.getServerUrl());
+		
+		if (msgCode != null) {
+	        model.addAttribute("message", msgCode);
+	    }
 		
 		return "login";
 	}

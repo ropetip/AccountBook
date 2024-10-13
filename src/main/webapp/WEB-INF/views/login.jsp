@@ -32,7 +32,6 @@
 <script>
 $(document).ready(function () {
 });
-<%=2%>
 function doKakaoLogin() {
 	const url = "https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${SERVER_URL}/oauth/kakao&response_type=code"; 
 	location.href = url;

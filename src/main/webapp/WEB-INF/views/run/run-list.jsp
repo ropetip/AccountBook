@@ -198,7 +198,7 @@ function showDetails(data) {
 	let obj = {};
 	
 	if(CO.isNotEmpty(data)) {
-		obj.RUN_ID = data.RUN_ID;	
+		obj.runId = data.RUN_ID;	
 	} else {
 		obj.isNew = true;
 	}

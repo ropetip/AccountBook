@@ -130,7 +130,19 @@ function setMenu() {
 }
 
 function go(url) {
-	window.location.href = url;
+	fetch(url)
+    .then(response => {
+        if (response.status === 401) {
+            alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
+            // 로그인 페이지로 리다이렉트 또는 원하는 동작 처리
+            window.location.href = '/login.do';
+        } else {
+            // 정상적인 페이지 이동
+            window.location.href = url;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+	//window.location.href = url;
 }
 
 function login() {

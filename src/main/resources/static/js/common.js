@@ -434,9 +434,9 @@ let CO = {
 	    str = str.replace(/=/g, ':');
 
 		// JSON 문자열로 변환하기 위해 키를 카멜케이스로 변환
-	   	str = str.replace(/(\w+):/g, (match, key) => {
+	   	/*str = str.replace(/(\w+):/g, (match, key) => {
        		return '"' + CO.toCamelCase(key) + '":';
-	   	});
+	   	});*/
 		
 	    // 키와 값을 쌍따옴표로 감싸기
 	    str = str.replace(/(\w+):/g, '"$1":');
