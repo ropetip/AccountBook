@@ -82,4 +82,16 @@ public class RunController {
 		
 		return resultMap;
 	}
+	
+	@PostMapping("/deleteRun.do")
+	@ResponseBody
+	public  Map<String, Object> deleteRun(@RequestParam Map<String, Object> param, HttpServletRequest request) {
+		// 세션 속성을 param에 추가
+        addSessionAttributesToParam(param, request);
+        
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = runService.deleteRun(param);
+		
+		return resultMap;
+	}
 }

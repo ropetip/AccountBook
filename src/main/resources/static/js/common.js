@@ -332,7 +332,7 @@ let CO = {
 		  	CO.ajaxSubmit(url, data, (result) => {
 		  		// 성공 콜백 함수
 		    	alert(result.result_msg);
-		    	doSearch();
+				goList();
 		  	}, (xhr, status, error) => {
 		  		// 실패 콜백 함수
 		  	    alert("서버와의 통신이 실패하였습니다. (" + error + ")");

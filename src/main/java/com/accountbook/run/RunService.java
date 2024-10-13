@@ -68,4 +68,19 @@ public class RunService {
 		}
 		return resultMap;
 	}
+	
+	public Map<String, Object> deleteRun(@RequestParam Map<String, Object> param) {
+        
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		int cnt = sqlSession.delete(NAMESPACE + "deleteRun", param);
+		if(cnt > 0) {
+			resultMap.put("result_code", "S");
+			resultMap.put("result_msg", "삭제되었습니다.");
+		} else {
+			resultMap.put("result_code", "E");
+			resultMap.put("result_msg", "삭제에 실패하였습니다.");
+		}
+		return resultMap;
+	}
 }

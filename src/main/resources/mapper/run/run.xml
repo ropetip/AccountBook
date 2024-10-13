@@ -25,7 +25,8 @@
 	
 	<select id="getRunDetail" resultType="map">
 		/* run.getRunDetail */
-		SELECT A.USR_ID
+		SELECT A.RUN_ID 
+			 , A.USR_ID
 			 , A.RUN_YMD
 			 , A.START_DT
 			 , A.END_DT
@@ -113,11 +114,11 @@
          WHERE RUN_ID = #{runId}
 	</update>
 
-	
 	<delete id="deleteRun" parameterType="map">
-		/* run.updateRun */
+		/* run.deleteRun */
 		DELETE 
 		FROM T_RUN
-		WHERE RUN_ID = #{runId} 
+		WHERE USR_ID = #{usrId}
+	    AND RUN_ID = #{runId} 
 	</delete>
 </mapper>
