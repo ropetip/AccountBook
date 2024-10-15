@@ -2,10 +2,12 @@
  * 
  */
 window.addEventListener("load", () => {
-	setComma();
+	setComma(); // 콤마 세팅
+	validateNumberInput(); // number 소수점 제한
 });
 
-/** input[data-type=currency]이라면 자동으로 콤마 세팅
+/**
+ *  input[data-type=currency]이라면 자동으로 콤마 세팅
  */   
 function setComma() {
 	document.querySelectorAll("[data-type='currency']").forEach(function(element) {
@@ -42,6 +44,54 @@ function showModal(modal_id) {
 
 function hideModal(modal_id) {
 	$("#"+modal_id).modal("hide");
+}
+/**
+ * input[type='number']인 경우 소수점 2자리까지 제어
+ */
+function checkMaxValue(input) {
+	const maxLength = parseInt(input.getAttribute("max-length"), 10);
+    const value = input.value;
+	
+	// 정규 표현식을 사용하여 소수점 2자리까지 입력 제한
+	const regex = /^\d*\.?\d{0,2}$/;
+
+    // 입력 값이 정규 표현식과 일치하지 않으면 잘라내기
+    if(!regex.test(value)) {
+      input.value = value.slice(0, -1); // 마지막 입력 제거
+    }
+	
+	// 입력 길이 검사
+	if (maxLength && value.length > maxLength) {
+	    input.value = value.slice(0, maxLength); // 최대 길이로 잘라내기
+	}
+	// min과 max 속성 가져오기
+    const min = parseFloat(input.getAttribute("min")) || 0; // 기본값 설정
+    const max = parseFloat(input.getAttribute("max")) || 100; // 기본값 설정
+	
+    // 추가적으로 유효한 숫자인지 검사
+    const numericValue = parseFloat(value);
+    if (!isNaN(numericValue)) {
+        if (numericValue < min) {
+            input.value = min; // 최소값으로 설정
+        } else if (numericValue > max) {
+            input.value = max; // 최대값으로 설정
+        }
+    }
+}
+
+function validateNumberInput() {
+	// 입력 요소를 선택
+	const inputNumbers = document.querySelectorAll("input[type='number']");
+
+	// 입력 이벤트에 대한 처리
+	inputNumbers.forEach(input => {
+		input.addEventListener("keyup", function() {
+			checkMaxValue(input);
+	  	});
+		input.addEventListener("change", function() {
+			checkMaxValue(input);
+	    });
+	});
 }
 
 let CO = {

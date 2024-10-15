@@ -64,90 +64,96 @@ function goList() {
 		        <h5 class="card-title">러닝 기록 입력 폼</h5>
 		
 		        <!-- 러닝 기록 입력 폼 -->
-		       <form id="fm">
-		           <div class="d-none row mb-3">
-		               <label for="runId" class="col-sm-2 col-form-label">러닝 ID</label>
-		               <div class="col-sm-10">
-		                   <input type="text" class="form-control" id="runId" name="runId">
-		               </div>
-		           </div>
-		           <div class="d-none row mb-3">
-		               <label for="usrId" class="col-sm-2 col-form-label">사용자 ID</label>
-		               <div class="col-sm-10">
-		                   <input type="text" class="form-control" id="usrId" name="usrId">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="runYmd" class="col-sm-2 col-form-label">러닝 날짜</label>
+				<form id="fm">
+					<div class="d-none row mb-3">
+			            <label for="runId" class="col-sm-2 col-form-label">러닝 ID</label>
+			            <div class="col-sm-10">
+			                <input type="text" class="form-control" id="runId" name="runId">
+			            </div>
+			        </div>
+			        <div class="d-none row mb-3">
+			            <label for="usrId" class="col-sm-2 col-form-label">사용자 ID</label>
+			            <div class="col-sm-10">
+			                <input type="text" class="form-control" id="usrId" name="usrId">
+			            </div>
+			        </div>
+			        <div class="row mb-3">
+			            <label for="runYmd" class="col-sm-2 col-form-label">러닝 날짜</label>
 						<div class="col-sm-10">
-						    <input type="date" class="form-control" id="runYmd" name="runYmd" required>
+				    		<input type="date" class="form-control" id="runYmd" name="runYmd" required>
 						</div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="startDt" class="col-sm-2 col-form-label">러닝 시작 시간</label>
-		               <div class="col-sm-10">
-		                   <input type="datetime-local" class="form-control" id="startDt" name="startDt" required>
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="endDt" class="col-sm-2 col-form-label">러닝 종료 시간</label>
-		               <div class="col-sm-10">
-		                   <input type="datetime-local" class="form-control" id="endDt" name="endDt">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="distance" class="col-sm-2 col-form-label">러닝 거리 (km)</label>
-		               <div class="col-sm-10">
-		                   <input type="number" step="0.01" class="form-control" id="distance" name="distance">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="duration" class="col-sm-2 col-form-label">러닝 소요 시간</label>
-		               <div class="col-sm-10">
-		                   <input type="time" class="form-control" id="duration" name="duration">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="pace" class="col-sm-2 col-form-label">러닝 페이스 (1km 기준)</label>
-		               <div class="col-sm-10">
-		                   <input type="time" class="form-control" id="pace" name="pace">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="caloriesBurned" class="col-sm-2 col-form-label">소모된 칼로리</label>
-		               <div class="col-sm-10">
-		                   <input type="number" step="0.01" class="form-control" id="caloriesBurned" name="caloriesBurned">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="route" class="col-sm-2 col-form-label">러닝 경로 정보</label>
-		               <div class="col-sm-10">
-		                   <textarea class="form-control" id="route" name="route" style="height: 100px"></textarea>
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="note" class="col-sm-2 col-form-label">메모 / 코멘트</label>
-		               <div class="col-sm-10">
-		                   <textarea class="form-control" id="note" name="note" style="height: 100px"></textarea>
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="weather" class="col-sm-2 col-form-label">날씨 조건</label>
-		               <div class="col-sm-10">
-		                   <input type="text" class="form-control" id="weather" name="weather">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <label for="gear" class="col-sm-2 col-form-label">사용 장비 / 신발</label>
-		               <div class="col-sm-10">
-		                   <input type="text" class="form-control" id="gear" name="gear">
-		               </div>
-		           </div>
-		           <div class="row mb-3">
-		               <div class="col-sm-10 offset-sm-2 text-end">
-		                   <button type="submit" class="btn btn-primary">제출</button>
-		               </div>
-		           </div>
+			        </div>
+			        <div class="row mb-3">
+			            <label for="startDt" class="col-sm-2 col-form-label">러닝 시작 시간</label>
+			            <div class="col-sm-10">
+			                <input type="datetime-local" class="form-control" id="startDt" name="startDt" required>
+			            </div>
+			        </div>
+			        <div class="row mb-3">
+			            <label for="endDt" class="col-sm-2 col-form-label">러닝 종료 시간</label>
+			            <div class="col-sm-10">
+			                <input type="datetime-local" class="form-control" id="endDt" name="endDt">
+			            </div>
+			        </div>
+			        <div class="row mb-3">
+			            <label for="distance" class="col-sm-2 col-form-label">러닝 거리 (km)</label>
+			            <div class="col-sm-10">
+			                <input type="number" step="0.01" class="form-control" id="distance" name="distance" max-length="6">
+			            </div>
+			        </div>
+			        <div class="row mb-3">
+						<label for="duration" class="col-sm-2 col-form-label">러닝 소요 시간</label>
+						  <div class="col-sm-3">
+					        <div class="input-group">
+					            <input type="number" class="form-control text-center" id="hours" name="hours" step="1" min="0" max="23" placeholder="0" aria-label="시간" />
+					            <span class="input-group-text">:</span>
+					            <input type="number" class="form-control text-center" id="minutes" name="minutes" min="0" max="59" placeholder="0" aria-label="분" />
+					            <span class="input-group-text">:</span>
+					            <input type="number" class="form-control text-center" id="seconds" name="seconds" min="0" max="59" placeholder="0" aria-label="초" />
+					        </div>
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <label for="pace" class="col-sm-2 col-form-label">러닝 페이스 (1km 기준)</label>
+					    <div class="col-sm-10">
+					        <input type="time" class="form-control" id="pace" name="pace">
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <label for="caloriesBurned" class="col-sm-2 col-form-label">소모된 칼로리</label>
+					    <div class="col-sm-10">
+					        <input type="number" step="0.01" class="form-control" id="caloriesBurned" name="caloriesBurned">
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <label for="route" class="col-sm-2 col-form-label">러닝 경로 정보</label>
+					    <div class="col-sm-10">
+					        <textarea class="form-control" id="route" name="route" style="height: 100px"></textarea>
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <label for="note" class="col-sm-2 col-form-label">메모 / 코멘트</label>
+					    <div class="col-sm-10">
+					        <textarea class="form-control" id="note" name="note" style="height: 100px"></textarea>
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <label for="weather" class="col-sm-2 col-form-label">날씨 조건</label>
+					    <div class="col-sm-10">
+					        <input type="text" class="form-control" id="weather" name="weather">
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <label for="gear" class="col-sm-2 col-form-label">사용 장비 / 신발</label>
+					    <div class="col-sm-10">
+					        <input type="text" class="form-control" id="gear" name="gear">
+					    </div>
+					</div>
+					<div class="row mb-3">
+					    <div class="col-sm-10 offset-sm-2 text-end">
+					        <button type="submit" class="btn btn-primary">제출</button>
+					    </div>
+					</div>
 		       </form>
 		       <!-- End 러닝 기록 입력 폼 -->
 	        </div>
