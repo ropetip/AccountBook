@@ -72,6 +72,7 @@
 <script src="resources/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="resources/vendor/tinymce/tinymce.min.js"></script>
 <script src="resources/vendor/php-email-form/validate.js"></script>
+<script src="resources/js/customTag.js"></script>
 <script src="resources/js/common.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
@@ -134,7 +135,7 @@ function go(url) {
     .then(response => {
         if (response.status === 401) {
             alert('세션이 만료되었습니다. 다시 로그인 해주세요.');
-            // 로그인 페이지로 리다이렉트 또는 원하는 동작 처리
+         	// 로그인 페이지로 리다이렉트 또는 원하는 동작 처리
             window.location.href = '/login.do';
         } else {
             // 정상적인 페이지 이동
@@ -142,7 +143,6 @@ function go(url) {
         }
     })
     .catch(error => console.error('Error:', error));
-	//window.location.href = url;
 }
 
 function login() {

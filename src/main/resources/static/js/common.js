@@ -420,25 +420,43 @@ let CO = {
 		const data = new FormData(fm);
 		
 		for(const [key, value] of data.entries()) {
+			
+			const el = document.querySelector("[name='"+key+"']");
+			// 필수 값 체크
+			if(!el.required) {
+				continue;
+			}
+			
 			if(value == "") {
-				const el = document.querySelector("[name='"+key+"']");
-				const label = el.parentNode.parentNode.querySelector("label").innerText;
+				let currentEl = el; // el 요소에서 시작
+				let label = "";
+				let labelText = ""; // 라벨 텍스트 초기화
 				
-				// 필수 값 체크
-				if(!el.required) {
-					continue;
+				// 부모 요소를 반복적으로 탐색
+				while (currentEl) {
+				    // 현재 요소에서 label 태그를 찾음
+				    label = currentEl.querySelector("label");
+				    
+				    // label이 있으면 멈춤
+				    if (label) {
+						labelText = label.textContent; // 라벨 텍스트 저장
+				        break;
+				    }
+				    
+				    // label이 없으면 한 단계 위로 이동
+				    currentEl = currentEl.parentNode;
 				}
-				
-				el.focus(); // 해당 요소에 포커스를 줌
 				
 				if (el.tagName === "INPUT") {
 					const inputType = el.type === "checkbox" ? "체크박스" : "입력 필드";
-				  	alert(label + " " + inputType + "에 값을 입력해주세요.");
+				  	alert(labelText + " " + inputType + "에 값을 입력해주세요.");
 				  	return;
 				} else if (el.tagName === "SELECT") {
-				  	alert(label + " 을/를 선택해 주세요.");
+				  	alert(labelText + " 을/를 선택해 주세요.");
 				  	return;
 				}
+
+				el.focus(); // 해당 요소에 포커스를 줌
 			}
 		}
 		

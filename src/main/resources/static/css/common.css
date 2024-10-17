@@ -26,6 +26,12 @@
 	display: block;
 }
 
+/* 시분초 */
+.time-input {
+     display: flex;
+     align-items: center;
+ }
+ 
 /* row mouse hover시 색상 변경 */
 .highlight {
 	background-color: #f0f8ff;

@@ -86,13 +86,13 @@ function goList() {
 			        <div class="row mb-3">
 			            <label for="startDt" class="col-sm-2 col-form-label">러닝 시작 시간</label>
 			            <div class="col-sm-10">
-			                <input type="datetime-local" class="form-control" id="startDt" name="startDt" required>
+			                <input type="time" class="form-control" id="startDt" name="startDt" required>
 			            </div>
 			        </div>
 			        <div class="row mb-3">
 			            <label for="endDt" class="col-sm-2 col-form-label">러닝 종료 시간</label>
 			            <div class="col-sm-10">
-			                <input type="datetime-local" class="form-control" id="endDt" name="endDt">
+			                <input type="time" class="form-control" id="endDt" name="endDt">
 			            </div>
 			        </div>
 			        <div class="row mb-3">
@@ -103,15 +103,13 @@ function goList() {
 			        </div>
 			        <div class="row mb-3">
 						<label for="duration" class="col-sm-2 col-form-label">러닝 소요 시간</label>
-						  <div class="col-sm-3">
-					        <div class="input-group">
-					            <input type="number" class="form-control text-center" id="hours" name="hours" step="1" min="0" max="23" placeholder="0" aria-label="시간" />
-					            <span class="input-group-text">:</span>
-					            <input type="number" class="form-control text-center" id="minutes" name="minutes" min="0" max="59" placeholder="0" aria-label="분" />
-					            <span class="input-group-text">:</span>
-					            <input type="number" class="form-control text-center" id="seconds" name="seconds" min="0" max="59" placeholder="0" aria-label="초" />
-					        </div>
-					    </div>
+						<div class="col-sm-3">
+					  		<div class="time-input">
+						        <input type="number" class="form-control" id="hours" min="0" max="23" placeholder="HH">
+						        <input type="number" class="form-control" id="minutes" min="0" max="59" placeholder="MM">
+						        <input type="number" class="form-control" id="seconds" min="0" max="59" placeholder="SS">
+					    	</div>
+				    	</div>
 					</div>
 					<div class="row mb-3">
 					    <label for="pace" class="col-sm-2 col-form-label">러닝 페이스 (1km 기준)</label>
