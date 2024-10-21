@@ -19,7 +19,7 @@ window.addEventListener("load", (e) => {
 	load();
 });
 
-function setData(data){
+function getData(data){
 	CO.ajaxSetForm("/getRunDetail.do", data);
 }
 
@@ -31,18 +31,48 @@ function load() {
 	let param = CO.convertToJSON(jsonString);
 	
 	if(!param.isNew) {
-		setData(param);	
+		getData(param);	
 	}
 }
 
+function getConvertedData(data) {
+	for (const [key, value] of Object.entries(data)) {
+		if(CO.toCamelCase(key) == "duration") {
+			let duration = value.split(":");
+			document.querySelector("#hours").value = duration[0];
+			document.querySelector("#minutes").value = duration[1];
+			document.querySelector("#seconds").value = duration[2];
+		}
+	}
+}
+
+function setConvertedData(formData) {
+	let hours = document.querySelector("#hours").value;
+	let minutes = document.querySelector("#minutes").value;
+	let seconds = document.querySelector("#seconds").value;
+	
+	let duration = CO.zeroToFill(hours, 1)+":"+CO.zeroToFill(minutes, 1)+":"+CO.zeroToFill(seconds, 1);
+	console.log("duration=>"+duration);
+	// 새로운 input 요소 생성
+    var hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.name = "duration";
+    hiddenInput.value = duration;
+    
+    // 폼에 hidden input 추가
+    document.querySelector("#fm").appendChild(hiddenInput);
+    
+    formData.set(hiddenInput.name, hiddenInput.value);
+    return formData;
+}
 //저장
 function doSave() {
-	CO.doSave("/saveRun.do", "fm");
+	CO.doSave("/saveRun.do");
 }
 
 //삭제
 function doDelete() {
-	CO.doDelete("/deleteRun.do", "fm");
+	CO.doDelete("/deleteRun.do");
 }
 
 function goList() {

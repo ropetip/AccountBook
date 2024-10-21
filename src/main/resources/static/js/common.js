@@ -330,6 +330,11 @@ let CO = {
 	// 폼 형식 콜백
 	callback_form: function(data, status, error) {
 		if (status == "success") {
+
+			if (typeof getConvertedData === 'function') {
+				getConvertedData(data);
+			}
+			
 			// 폼 필드에 동적으로 값을 설정합니다.
 		    for (const [key, value] of Object.entries(data)) {
 		        const elementByName = document.querySelector("[name='"+CO.toCamelCase(key)+"']");
@@ -400,6 +405,10 @@ let CO = {
 		if(!CO.isValidate(fm)) {
 			return;
 		}
+		
+		if (typeof setConvertedData === 'function') {
+			setConvertedData(data);
+	 	}
 		
 		// 날짜,콤마 제거 및 NULL 처리
 	    data = CO.convertFormData(data);
@@ -517,6 +526,11 @@ let CO = {
         const jsonString = '{' + str + '}';
         console.log('JSON String:', jsonString); // 디버깅용 출력
         return JSON.parse(jsonString);
+	},
+	
+	// 앞에를 0으로 채우기
+	zeroToFill: function(str, digits) {
+	    return str.padStart(digits, '0');
 	}
 
 };

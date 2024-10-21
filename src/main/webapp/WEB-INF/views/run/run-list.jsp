@@ -41,8 +41,7 @@ function load() {
         	{ "data": "START_DT",
         		"render": function (data, type, row) {
 		            if (data) {
-		                // 날짜 및 시간 문자열의 형식을 yyyy-MM-ddThh:mm로 변환
-		                return data.substring(0, 10) + 'T' + data.substring(11, 16);
+		                return data.substring(0, 5);
 		            }
 	                return data;
             	}
@@ -50,8 +49,7 @@ function load() {
 	        { "data": "END_DT",
         		"render": function (data, type, row) {
 		            if (data) {
-		                // 날짜 및 시간 문자열의 형식을 yyyy-MM-ddThh:mm로 변환
-		                return data.substring(0, 10) + 'T' + data.substring(11, 16);
+            	 		return data.substring(0, 5);
 		            }
 	                return data;
             	}
@@ -68,7 +66,7 @@ function load() {
       		{ targets: [1], width: "12%", className: "text-center"},
       		{ targets: [2], width: "12%", className: "text-center"},
       		{ targets: [3], width: "12%", className: "text-center"},
-      		{ targets: [4], width: "12%", className: "text-right"},
+      		{ targets: [4], width: "12%", className: "text-center"},
       		{ targets: [5], width: "12%", className: "text-center"},
       		{ targets: [6], width: "12%", className: "text-center"},
       		{ targets: [6], width: "12%", className: "text-center"},
