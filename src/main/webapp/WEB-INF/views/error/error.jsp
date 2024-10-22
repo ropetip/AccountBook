@@ -82,11 +82,20 @@
     <div class="error-content">
         <h1>${status} 에러</h1>
         <p>${message}</p>
-        <div style="margin-top: 40px"><a href="/" class="btn btn-primary">메인 페이지로 돌아가기</a></div>
+        <div style="margin-top: 40px"><a id="countdown" href="/" class="btn btn-primary">3초 후 메인 페이지로 돌아갑니다.</a></div>
         <script>
-            setTimeout(function() {
-                window.location.href = "/";
-            }, 3000);
+        	let countdownNumber = 3;
+        	let countdownElement = document.querySelector("#countdown");
+        	
+        	let countdownInterval = setInterval(() => {
+				countdownElement.textContent = countdownNumber + "초 후 메인 페이지로 돌아갑니다.";
+				countdownNumber--;
+
+				if(countdownNumber < 0) {
+					clearInterval(countdownInterval);
+					window.location.href = "/";	
+				}
+			}, 1000);
         </script>
     </div>
 

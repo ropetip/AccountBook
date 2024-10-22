@@ -44,7 +44,7 @@ public class RunController {
 		return "/run/run-list";
 	}
 	
-	@GetMapping("/getRunList.do")
+	@PostMapping("/getRunList.do")
 	@ResponseBody 
 	public List<Map<String, Object>> getRunList(@RequestParam Map<String, Object> param, HttpSession session, HttpServletRequest request) {
 		addSessionAttributesToParam(param, request);

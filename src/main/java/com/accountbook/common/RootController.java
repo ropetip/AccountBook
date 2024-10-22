@@ -1,5 +1,8 @@
 package com.accountbook.common;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,12 @@ public class RootController {
 	
 	// 로그인 화면
 	@RequestMapping("/login.do")
-	public String login(Model model, @RequestParam(required = false) String msgCode) {
+	public String login(Model model, @RequestParam(required = false) String msgCode, HttpSession session) {
+		String usrId = (String)session.getAttribute("usrId");
+		
+		if(StringUtils.isNotEmpty(usrId)) {
+			return "redirect:/";
+		}
 		
 		model.addAttribute("CLIENT_ID", config.getOauthKakaoClientId());
 		model.addAttribute("SERVER_URL", config.getServerUrl());

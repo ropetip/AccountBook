@@ -150,14 +150,17 @@ let CO = {
 
 		$.ajax({
 			url: url
-			, type: "get"
+			, type: "post"
 			, data: data
 			, dataType: "json"
 			, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+			, beforeSend: function(xhr) {
+	      		xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="_csrf"]').attr('content')); // CSRF 토큰 추가
+			}
 			, success: function(data, status, xhr) {
 				table.rows.add(data).draw();
-			},
-			error: function(xhr, status, error) {
+			}
+			, error: function(xhr, status, error) {
 				alert("데이터를 가져오는데 실패하였습니다.");
 			}
 		});

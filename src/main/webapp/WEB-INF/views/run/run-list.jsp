@@ -23,8 +23,9 @@ function load() {
 	table = $('#dataTable').DataTable( {
 		dom: 'BRlfrti',
 		ajax: {
-		      "url": "/getRunList.do",
-		      "dataSrc": ""
+		      "url": "/getRunList.do"
+		      ,"type": "post"
+		      ,"dataSrc": ""
 	    },
 	    columns: [
 	        { "data": "RUN_ID" },
